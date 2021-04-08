@@ -1,10 +1,24 @@
+/** Utilities */
+const utilties = require('./utilities')
+
+/** Read Strings */
+const strings = require('./strings.json')
+
+/** Read Config */
+const configData = require('./config.json')
+
 /** Mongoose Setup */
 const mongoose = require('mongoose')
 const passportLocalMongoose = require('passport-local-mongoose')
 const passport = require('passport')
 
-mongoose.connect('mongodb+srv://erickao:WgZGk2hJkneAB1IU@cluster0.pjqwo.mongodb.net/parkEasy?retryWrites=true&w=majority', {
+mongoose.connect(configData.connectionString, {
     useNewUrlParser: true, useUnifiedTopology: true
+}, (err) => {
+    if (err) {
+        utilties.errorLog(strings.ERROR_DB_C, strings.ERROR_DB_T, err.name)
+        process.exit(0)
+    }
 })
 
 const Schema = mongoose.Schema
@@ -23,4 +37,7 @@ passport.use(UserDetails.createStrategy())
 passport.serializeUser(UserDetails.serializeUser())
 passport.deserializeUser(UserDetails.deserializeUser())
 
-exports.UserDetails = UserDetails
+module.exports = {
+    UserDetails: UserDetails,
+    db: mongoose.connection
+}

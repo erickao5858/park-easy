@@ -1,0 +1,9 @@
+{
+    "ERROR_CONFIG_C": "Error: config file cannot be read in correct format.",
+    "ERROR_CONFIG_T": "Please create config.json in root folder.",
+    "ERROR_DB_C": "Error: database cannot be accessed.",
+    "ERROR_DB_T": "Please check connection string in config.json.",
+    "INIT_CONFIG":"Reading config...",
+    "INIT_DB":"Connecting to database...",
+    "SERVER_STARTED":"Server started, listening on port"
+}
