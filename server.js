@@ -1,3 +1,20 @@
+/** Utilities */
+const utilties = require('./utilities')
+
+/** Read Strings */
+const strings = require('./strings.json')
+
+/** Read Config */
+console.log(strings.INIT_CONFIG)
+let configData
+try {
+    configData = require('./config.json')
+
+} catch (e) {
+    utilties.errorLog(strings.ERROR_CONFIG_C, strings.ERROR_CONFIG_T, e.code)
+    process.exit(0)
+}
+
 /** Express Setup */
 const express = require('express')
 const app = express()
@@ -7,7 +24,7 @@ app.use(express.static(__dirname))
 const bodyParser = require('body-parser')
 const expressSession = require('express-session')({
     // Salt
-    secret: 'parkeasy',
+    secret: configData.secret,
     resave: false,
     saveUninitialized: false
 })
@@ -16,8 +33,8 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(expressSession)
 
-const port = process.env.PORT || 3000
-app.listen(port, () => console.log('App listening on port ' + port))
+const port = configData.port
+app.listen(port, () => console.log('\033[32m' + strings.SERVER_STARTED + ' ' + port + '\033[0m'))
 
 /** Passport Setup */
 const passport = require('passport')
@@ -26,6 +43,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 /** Mongoose Setup */
+console.log(strings.INIT_DB)
 const mongoConnect = require('./mongo-connect')
 
 /** Connect Ensure Login */
@@ -80,9 +98,9 @@ app.get('/register', (req, res) => {
 
 app.post('/register', (req, res) => {
     mongoConnect.UserDetails.register({ username: req.body.username, active: false }, req.body.password, (err) => {
-        if(err) {
-            return res.redirect('/register?info='+err.message)
+        if (err) {
+            return res.redirect('/register?info=' + err.message)
         }
-        return res.redirect('/register?info='+'successful')
+        return res.redirect('/register?info=' + 'successful')
     })
 })
