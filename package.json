@@ -1,6 +1,6 @@
 {
   "name": "park-easy",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "ParkEasy is an application that helps people in finding available roadside parking bays.",
   "main": "server.js",
   "scripts": {
@@ -11,7 +11,7 @@
     "url": "git+https://github.com/erickao5858/park-easy.git"
   },
   "license": "MIT",
-  "author": "Eric Kao",
+  "author": "Eric Kao <eric.kao5858@gmail.com>",
   "bugs": {
     "url": "https://github.com/erickao5858/park-easy/issues"
   },
