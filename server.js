@@ -33,7 +33,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(expressSession)
 
-const port = configData.port
+const port = 3000
 app.listen(port, () => console.log('\033[32m' + strings.SERVER_STARTED + ' ' + port + '\033[0m'))
 
 /** Passport Setup */
