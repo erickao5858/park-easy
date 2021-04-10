@@ -1,5 +1,0 @@
-{
-    "port": 3000,
-    "connectionString":"mongodb+srv://<username>:<password>@<domain>/<database>?retryWrites=true&w=majority",
-    "secret": "<secret>"
-}

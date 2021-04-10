@@ -1,19 +1,5 @@
-/** Utilities */
-const utilties = require('./utilities')
-
 /** Read Strings */
 const strings = require('./strings.json')
-
-/** Read Config */
-console.log(strings.INIT_CONFIG)
-let configData
-try {
-    configData = require('./config.json')
-
-} catch (e) {
-    utilties.errorLog(strings.ERROR_CONFIG_C, strings.ERROR_CONFIG_T, e.code)
-    process.exit(0)
-}
 
 /** Express Setup */
 const express = require('express')
@@ -24,7 +10,7 @@ app.use(express.static(__dirname))
 const bodyParser = require('body-parser')
 const expressSession = require('express-session')({
     // Salt
-    secret: configData.secret,
+    secret: 'parkeasy',
     resave: false,
     saveUninitialized: false
 })
@@ -33,8 +19,8 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(expressSession)
 
-const port = configData.port
-app.listen(port, () => console.log('\033[32m' + strings.SERVER_STARTED + ' ' + port + '\033[0m'))
+const port = 3000
+app.listen(port, () => console.log(strings.SERVER_STARTED, port))
 
 /** Passport Setup */
 const passport = require('passport')
@@ -43,7 +29,6 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 /** Mongoose Setup */
-console.log(strings.INIT_DB)
 const mongoConnect = require('./mongo-connect')
 
 /** Connect Ensure Login */

@@ -1,22 +1,16 @@
-/** Utilities */
-const utilties = require('./utilities')
-
 /** Read Strings */
 const strings = require('./strings.json')
-
-/** Read Config */
-const configData = require('./config.json')
 
 /** Mongoose Setup */
 const mongoose = require('mongoose')
 const passportLocalMongoose = require('passport-local-mongoose')
 const passport = require('passport')
 
-mongoose.connect(configData.connectionString, {
+mongoose.connect('mongodb+srv://erickao:U08uDNf0bolf0eIL@cluster0.pjqwo.mongodb.net/parkEasy?retryWrites=true&w=majority', {
     useNewUrlParser: true, useUnifiedTopology: true
 }, (err) => {
     if (err) {
-        utilties.errorLog(strings.ERROR_DB_C, strings.ERROR_DB_T, err.name)
+        console.log(strings.ERROR_DB_CONNECTION)
         process.exit(0)
     }
 })
