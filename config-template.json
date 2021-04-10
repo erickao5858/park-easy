@@ -1,4 +1,0 @@
-{
-    "connectionString":"mongodb+srv://<username>:<password>@<domain>/<database>?retryWrites=true&w=majority",
-    "secret": "<secret>"
-}
