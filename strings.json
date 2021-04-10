@@ -1,4 +1,4 @@
 {
     "ERROR_DB_CONNECTION": "Error: database cannot be accessed.",
-    "SERVER_STARTED":"Server started, listening on port"
+    "SERVER_STARTED":"Server started, listening on"
 }
