@@ -1,6 +1,10 @@
 /** Read Strings */
 const strings = require('./strings.json')
 
+/** Cloud Foundry Dependencies */
+const cfenv = require('cfenv')
+const appEnv = cfenv.getAppEnv()
+
 /** Express Setup */
 const express = require('express')
 const app = express()
@@ -19,8 +23,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(expressSession)
 
-const port = 3000
-app.listen(port, () => console.log(strings.SERVER_STARTED, port))
+app.listen(appEnv.port, appEnv.bind, () => console.log(strings.SERVER_STARTED, appEnv.bind, ':', appEnv.port))
 
 /** Passport Setup */
 const passport = require('passport')
