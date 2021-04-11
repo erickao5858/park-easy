@@ -3,7 +3,6 @@ const strings = require('./strings.json')
 
 /** Mongoose Setup */
 const mongoose = require('mongoose')
-const passportLocalMongoose = require('passport-local-mongoose')
 const passport = require('passport')
 
 mongoose.connect('mongodb+srv://erickao:U08uDNf0bolf0eIL@cluster0.pjqwo.mongodb.net/parkEasy?retryWrites=true&w=majority', {
@@ -15,23 +14,13 @@ mongoose.connect('mongodb+srv://erickao:U08uDNf0bolf0eIL@cluster0.pjqwo.mongodb.
     }
 })
 
-const Schema = mongoose.Schema
-const UserDetail = new Schema({
-    username: String,
-    password: String
-})
-
-UserDetail.plugin(passportLocalMongoose)
-const UserDetails = mongoose.model('userInfo', UserDetail, 'userInfo')
+const User = require('./models/user')
 
 /** Passport Local Authentication */
 
-passport.use(UserDetails.createStrategy())
+passport.use(User.createStrategy())
 
-passport.serializeUser(UserDetails.serializeUser())
-passport.deserializeUser(UserDetails.deserializeUser())
+passport.serializeUser(User.serializeUser())
+passport.deserializeUser(User.deserializeUser())
 
-module.exports = {
-    UserDetails: UserDetails,
-    db: mongoose.connection
-}
+module.exports = mongoose.connection
