@@ -57,7 +57,7 @@ app.post('/login', (req, res, next) => {
 })
 
 app.get('/login', (req, res) => {
-    res.sendFile('html/login.html', { root: __dirname })
+    res.sendFile('public/login.html', { root: __dirname })
 })
 
 app.post('/logout', (req, res) => {
@@ -67,12 +67,12 @@ app.post('/logout', (req, res) => {
 
 app.get('/',
     connectEnsureLogin.ensureLoggedIn(),
-    (req, res) => res.sendFile('html/index.html', { root: __dirname })
+    (req, res) => res.sendFile('public/index.html', { root: __dirname })
 )
 
 app.get('/private',
     connectEnsureLogin.ensureLoggedIn(),
-    (req, res) => res.sendFile('html/private.html', { root: __dirname })
+    (req, res) => res.sendFile('public/private.html', { root: __dirname })
 )
 
 app.get('/user',
@@ -81,7 +81,7 @@ app.get('/user',
 )
 
 app.get('/register', (req, res) => {
-    res.sendFile('html/register.html', { root: __dirname })
+    res.sendFile('public/register.html', { root: __dirname })
 })
 
 app.post('/register', (req, res) => {
