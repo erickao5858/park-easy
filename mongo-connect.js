@@ -24,6 +24,5 @@ passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 
 module.exports = {
-    User: User,
     db: mongoose.connection
 }

@@ -38,31 +38,11 @@ const mongoConnect = require('./mongo-connect')
 const connectEnsureLogin = require('connect-ensure-login')
 
 /** Routes */
-app.post('/login', (req, res, next) => {
-    passport.authenticate('local', (err, user, info) => {
-        if (err) {
-            return next(err)
-        }
-        if (!user) {
-            return res.redirect('/login?info=' + info)
-        }
-        req.logIn(user, (err) => {
-            if (err) {
-                return next(err)
-            }
-
-            return res.redirect('/')
-        })
-    })(req, res, next)
-})
+const userRoute = require('./routes/userRoute')
+app.use('/', userRoute)
 
 app.get('/login', (req, res) => {
     res.sendFile('public/login.html', { root: __dirname })
-})
-
-app.post('/logout', (req, res) => {
-    req.logout()
-    res.redirect('/')
 })
 
 app.get('/',
