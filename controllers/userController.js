@@ -1,6 +1,5 @@
 const passport = require('passport')
-
-
+const User = require('../models/user')
 
 exports.login = (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
@@ -22,6 +21,15 @@ exports.login = (req, res, next) => {
 exports.logout = (req, res) => {
     req.logout()
     res.redirect('/')
+}
+
+exports.register = (req, res) => {
+    User.register({ username: req.body.username, active: false }, req.body.password, (err) => {
+        if (err) {
+            return res.redirect('/register?info=' + err.message)
+        }
+        return res.redirect('/register?info=' + 'successful')
+    })
 }
 
 exports.getUserInfo = (req, res) => {

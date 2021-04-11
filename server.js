@@ -34,21 +34,9 @@ app.use(passport.session())
 /** Mongoose Setup */
 const mongoConnect = require('./mongo-connect')
 
-/** Connect Ensure Login */
-const connectEnsureLogin = require('connect-ensure-login')
-
 /** Routes */
 const userRoute = require('./routes/userRoute')
 app.use('/', userRoute)
 
 const htmlRoute = require('./routes/htmlRoute')
 app.use('/', htmlRoute)
-
-app.post('/register', (req, res) => {
-    mongoConnect.UserDetails.register({ username: req.body.username, active: false }, req.body.password, (err) => {
-        if (err) {
-            return res.redirect('/register?info=' + err.message)
-        }
-        return res.redirect('/register?info=' + 'successful')
-    })
-})
