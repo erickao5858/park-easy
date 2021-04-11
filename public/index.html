@@ -26,7 +26,7 @@
                 document.getElementById("welcome-message").innerText = `Welcome ${user.username}!`;
             }
         };
-        req.open("GET", "user", true);
+        req.open("GET", "getUserInfo", true);
         req.send();
     </script>
 </body>

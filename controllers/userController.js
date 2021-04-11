@@ -1,5 +1,7 @@
 const passport = require('passport')
 
+
+
 exports.login = (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
         if (err) {
@@ -20,4 +22,8 @@ exports.login = (req, res, next) => {
 exports.logout = (req, res) => {
     req.logout()
     res.redirect('/')
+}
+
+exports.getUserInfo = (req, res) => {
+    res.send({ user: req.user })
 }

@@ -41,28 +41,8 @@ const connectEnsureLogin = require('connect-ensure-login')
 const userRoute = require('./routes/userRoute')
 app.use('/', userRoute)
 
-app.get('/login', (req, res) => {
-    res.sendFile('public/login.html', { root: __dirname })
-})
-
-app.get('/',
-    connectEnsureLogin.ensureLoggedIn(),
-    (req, res) => res.sendFile('public/index.html', { root: __dirname })
-)
-
-app.get('/private',
-    connectEnsureLogin.ensureLoggedIn(),
-    (req, res) => res.sendFile('public/private.html', { root: __dirname })
-)
-
-app.get('/user',
-    connectEnsureLogin.ensureLoggedIn(),
-    (req, res) => res.send({ user: req.user })
-)
-
-app.get('/register', (req, res) => {
-    res.sendFile('public/register.html', { root: __dirname })
-})
+const htmlRoute = require('./routes/htmlRoute')
+app.use('/', htmlRoute)
 
 app.post('/register', (req, res) => {
     mongoConnect.UserDetails.register({ username: req.body.username, active: false }, req.body.password, (err) => {
