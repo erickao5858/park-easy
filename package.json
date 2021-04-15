@@ -18,7 +18,6 @@
   "homepage": "https://github.com/erickao5858/park-easy-web#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
-    "cfenv": "^1.2.4",
     "connect-ensure-login": "^0.1.1",
     "express": "^4.17.1",
     "express-session": "^1.17.1",

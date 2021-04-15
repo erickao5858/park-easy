@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY . .
 
-EXPOSE 6001
+EXPOSE 3000
 
 RUN npm install
 
