@@ -23,7 +23,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(expressSession)
 
-app.listen(appEnv.port, appEnv.bind, () => console.log(strings.SERVER_STARTED, appEnv.bind, ':', appEnv.port))
+app.listen(appEnv.port, () => console.log(strings.SERVER_STARTED, appEnv.port))
 
 /** Passport Setup */
 const passport = require('passport')
