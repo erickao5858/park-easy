@@ -10,8 +10,8 @@ router.get('/', (req, res) => {
     res.sendFile('mapView.html', { root: htmlLocation })
 })
 
-router.get('/test', (req, res) => {
-    res.sendFile('test.html', { root: htmlLocation })
+router.get('/listView', (req, res) => {
+    res.sendFile('listView.html', { root: htmlLocation })
 })
 
 router.get('/test', (req, res) => {

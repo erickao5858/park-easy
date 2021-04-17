@@ -41,7 +41,7 @@ var map = new mapboxgl.Map({
 )
 
 // Center map to user location
-//navigator.geolocation.getCurrentPosition((position) => map.setCenter([position.coords.longitude, position.coords.latitude]))
+// navigator.geolocation.getCurrentPosition((position) => map.setCenter([position.coords.longitude, position.coords.latitude]))
 
 // Append POIs to map
 const appendPOIs = (POIs) => {
@@ -71,23 +71,33 @@ const appendPOIs = (POIs) => {
     })
     // Bind click event
     map.on('click', 'points', (e) => {
-        var coordinates = e.features[0].geometry.coordinates.slice();
-        var description = e.features[0].properties.description;
+        var coordinates = e.features[0].geometry.coordinates.slice()
+        var description = generateLinkHTML(e.features[0].properties.title, e.features[0].geometry.coordinates, e.features[0].properties.bays)
 
         // Ensure that if the map is zoomed out such that multiple
         // copies of the feature are visible, the popup appears
         // over the copy being pointed to.
         while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360
         }
 
         new mapboxgl.Popup()
             .setLngLat(coordinates)
             .setHTML(description)
-            .addTo(map);
+            .addTo(map)
     })
     // TODO: NOT IN MVP 
     // Add data expiry
+}
+
+const generateLinkHTML = (title, coordinates, bays) => {
+    // TODO: Use jquery to formulate html
+    return '<b>' + title + '</b>' + '<div>' +
+        getDistance(coordinates[1], coordinates[0]) + '<br>' +
+        bays + '<br>' +
+        '<a href="https://www.google.com/maps/dir/?api=1&destination=' +
+        coordinates[1] + ',' + coordinates[0] + '&travelmode=driving" target="_blank">Navi to here</a>' +
+        '</div>'
 }
 
 // Remove POIs from map
@@ -114,8 +124,9 @@ const createPOIs = (data) => {
                 'coordinates': location.coordinates
             },
             'properties': {
-                'title': location.title + ' ' + location.baysAvailable + '/' + location.bays,
-                'description': location.description
+                'title': location.title,
+                'description': location.description,
+                'bays': location.baysAvailable + '/' + location.bays + ' spots'
             }
         }
         POIs.push(POI)

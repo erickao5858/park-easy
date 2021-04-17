@@ -1,0 +1,19 @@
+html, body {
+    height: 100%;
+}
+
+.collection {
+    margin: 0;
+}
+
+.collection-item.avatar {
+    padding-bottom: 0;
+}
+
+.collection-item.avatar img {
+    margin-top: 8px;
+}
+
+.collection .collection-item.avatar .secondary-content {
+    top: 26px;
+}
