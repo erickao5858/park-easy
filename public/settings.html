@@ -36,13 +36,32 @@
     <div class='fixed-action-btn'>
         <a href='#' class='btn-floating btn-large waves-effect waves-light blue'><i class='medium material-icons'>menu</i></a>
     </div>
+
+    <!-- Settings items -->
+    <ul class='collection'></ul>
+
     <!-- jQuery -->
     <script src='https://code.jquery.com/jquery-3.6.0.min.js' integrity='sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=' crossorigin='anonymous'></script>
     <!-- Compiled and minified JavaScript -->
     <script src='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js'></script>
+    <!-- Data -->
+    <script type='text/javascript' src='../javascript/data.js'></script>
 
     <script type='text/javascript' src='../javascript/init.js'></script>
     <script type='text/javascript' src='../javascript/settings.js'></script>
 </body>
 
 </html>
+
+<template id='template-collection-item'>
+    <li class='collection-item'>
+        <div class='setting-name'></div>
+        <!-- TODO: Extract this with jquery -->
+        <div class='setting-option switch'>
+            <label>
+                <input type="checkbox">
+                <span class="lever"></span>
+            </label>
+        </div>
+    </li>
+</template>

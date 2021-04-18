@@ -21,3 +21,16 @@ const data = {
         }
     ]
 }
+
+const settingItems = [
+    {
+        'name': 'Free parking bays only',
+        'type': 'checkbox',
+        'default': 'false'
+    },
+    {
+        'name': 'Refresh page every minute',
+        'type': 'checkbox',
+        'default': 'false'
+    }
+]
