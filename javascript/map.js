@@ -27,6 +27,7 @@ var map = new mapboxgl.Map({
             map.addImage('custom-marker', image)
 
             // TODO: Request data from api server
+
             // TODO: NOT IN MVP
             // Request parameter includes current position
             // The server only returns parking bays around the user
@@ -91,7 +92,8 @@ const appendPOIs = (POIs) => {
 }
 
 const generateLinkHTML = (title, coordinates, bays) => {
-    // TODO: Use jquery to formulate html
+    // TODO: NOT IN MVP
+    // Use jquery to formulate html
     return '<b>' + title + '</b>' + '<div>' +
         getDistance(coordinates[1], coordinates[0]) + '<br>' +
         bays + '<br>' +

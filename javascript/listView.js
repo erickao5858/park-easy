@@ -3,7 +3,9 @@ $(document).ready(() => {
 })
 
 const showLocations = (data) => {
-    // TODO: add loading effect
+    // TODO: NOT IN MAP
+    // add loading effect
+    
     // Wait for user location data
     if (!userCoordinates) {
         setTimeout(() => {
