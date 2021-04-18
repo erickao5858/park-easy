@@ -1,3 +1,4 @@
+// TODO: Implement setting variance
 $(document).ready(() => {
     showLocations(data)
 })

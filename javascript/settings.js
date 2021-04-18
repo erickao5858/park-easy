@@ -18,7 +18,6 @@ const initUserSettings = (settingItems) => {
 const retrieveUserSettingsFromLocalStorage = () => {
     if (!localStorage.getItem('settingValues')) return false
     userSettings = JSON.parse(localStorage.getItem('settingValues'))
-    console.log(userSettings)
     return true
 }
 
