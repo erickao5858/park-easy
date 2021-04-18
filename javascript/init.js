@@ -7,8 +7,6 @@ $(document).ready(() => {
     // Initialize modal
     $('.modal').modal()
 
-    // TODO: Retrieve user settings from localStorage
-
     // TODO: Extract as a function
     // Called only in list view and map view pages
     // Get user location
