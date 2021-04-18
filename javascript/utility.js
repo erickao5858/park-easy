@@ -55,6 +55,7 @@ const getDistance = (desLat, desLng) => {
 }
 
 const zoomImage = (obj) => {
+	// TODO: Undo function extraction
 	// Update image src
 	$('.modal').find('img').attr('src', obj.target.currentSrc).css('width', '100%')
 	$('.modal').modal('open')

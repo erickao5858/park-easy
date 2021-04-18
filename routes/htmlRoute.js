@@ -14,6 +14,10 @@ router.get('/listView', (req, res) => {
     res.sendFile('listView.html', { root: htmlLocation })
 })
 
+router.get('/settings', (req, res) => {
+    res.sendFile('settings.html', { root: htmlLocation })
+})
+
 router.get('/test', (req, res) => {
     res.sendFile('test.html', { root: htmlLocation })
 })
