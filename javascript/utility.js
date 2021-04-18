@@ -61,3 +61,30 @@ const zoomImage = (obj) => {
 	$('.modal').find('img').attr('src', obj.target.currentSrc).css('width', '100%')
 	$('.modal').modal('open')
 }
+
+/**
+ * Retrieve an item from local storage
+ * @param {string} key item key
+ * @returns {object}
+ */
+const getItemFromLocalStorage = (key) => {
+	return JSON.parse(localStorage.getItem(key))
+}
+
+
+/**
+ * Store an item to local storage
+ * @param {string} key item key
+ * @param {object} data data object
+ */
+const setItemToLocalStorage = (key, data) => {
+	localStorage.setItem(key, JSON.stringify(data))
+}
+
+/**
+ * Remove an item from local storage
+ * @param {string} key item key
+ */
+const removeItemFromLocalStorage = (key) => {
+	localStorage.removeItem(key)
+}

@@ -1,7 +1,7 @@
 let userSettings = []
 $(document).ready(() => {
-    const hasUserSettings = retrieveUserSettingsFromLocalStorage()
-    if (!hasUserSettings) initUserSettings(settingItems)
+    userSettings = getItemFromLocalStorage('settingValues')
+    if (!userSettings) initUserSettings(settingItems)
     showSettings(userSettings)
 })
 
@@ -13,13 +13,6 @@ const initUserSettings = (settingItems) => {
             'value': item.default
         })
     })
-}
-
-const retrieveUserSettingsFromLocalStorage = () => {
-    if (!localStorage.getItem('settingValues')) return false
-    userSettings = JSON.parse(localStorage.getItem('settingValues'))
-    console.log(userSettings)
-    return true
 }
 
 const showSettings = (settingItems) => {
@@ -46,13 +39,11 @@ const updateSetting = (event) => {
     // Implement a function to solve toast spamming
     // allow 3 toasts at the same time
 
-
-    // TODO: Update localStorage
     userSettings.forEach(setting => {
         if (setting.name == settingName) setting.value = settingValue
     })
     try {
-        localStorage.setItem('settingValues', JSON.stringify(userSettings))
+        setItemToLocalStorage('settingValues', userSettings)
         M.toast({ html: 'Settings updated' })
     } catch (e) {
         M.toast({ html: 'Error: ' + e.message })

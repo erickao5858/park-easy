@@ -1,0 +1,12 @@
+html, body {
+    height: 100%;
+}
+
+.container {
+    margin-top: 24px;
+}
+
+.btn {
+    width: 100%;
+    padding: 0;
+}

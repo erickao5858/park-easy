@@ -1,11 +1,13 @@
 // TODO: Migrate to listView.js and mapView.js
 let userCoordinates
+let currentUser
 $(document).ready(() => {
-    // Initialize side navigator
-    $('.sidenav').sidenav()
+    // Initialize materializecss components
+    M.AutoInit()
 
-    // Initialize modal
-    $('.modal').modal()
+    // Retrieve current user from local storage
+    currentUser = getItemFromLocalStorage('currentUser')
+    if (currentUser) appendUserInfo()
 
     // TODO: Extract as a function
     // Called only in list view and map view pages
@@ -24,4 +26,22 @@ $('.fixed-action-btn').click(() => {
     $('.sidenav').sidenav('open')
 })
 
+appendUserInfo = () => {
+    const userInfoElement = $('#slide-out').children().first()
+    userInfoElement.click(logout)
+    userInfoElement.html('<a class="waves-effect" href="#"><i class="material-icons">person</i> Sign out</a>')
+}
+
+logout = () => {
+    console.log('fire')
+    $.get('/logout', (data) => {
+        console.log(data)
+        if (!data.success) {
+            M.toast({ html: 'Connection failed!' })
+            return
+        }
+        removeItemFromLocalStorage('currentUser')
+        location.reload()
+    })
+}
 // TODO: Disable drag and select with jquery functions
