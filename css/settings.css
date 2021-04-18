@@ -1,0 +1,15 @@
+html, body {
+    height: 100%;
+}
+
+.collection {
+    margin: 0;
+}
+
+.setting-name {
+    display: inline;
+}
+
+.switch {
+    float: right;
+}
