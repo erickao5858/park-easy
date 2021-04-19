@@ -28,12 +28,6 @@ const passport = require('passport')
 app.use(passport.initialize())
 app.use(passport.session())
 
-/** Mongoose Setup */
-const mongoConnect = require('./mongo-connect')
-
 /** Routes */
-const userRoute = require('./routes/userRoute')
-app.use('/', userRoute)
-
 const htmlRoute = require('./routes/htmlRoute')
 app.use('/', htmlRoute)

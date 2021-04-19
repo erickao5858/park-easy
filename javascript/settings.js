@@ -1,5 +1,6 @@
 let userSettings
 $(document).ready(() => {
+    if(!currentUser) $(location).attr('href', '/login')
     userSettings = getItemFromLocalStorage('settingValues')
     if (!userSettings) initUserSettings(settingItems)
     showSettings(userSettings)

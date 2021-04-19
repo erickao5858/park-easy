@@ -34,13 +34,7 @@ appendUserInfo = () => {
 }
 
 logout = () => {
-    $.get('/logout', (data) => {
-        if (!data.success) {
-            M.toast({ html: 'Connection failed!' })
-            return
-        }
-        removeItemFromLocalStorage('currentUser')
-        $(location).attr('href', '/login')
-    })
+    removeItemFromLocalStorage('currentUser')
+    $(location).attr('href', '/login')
 }
 // TODO: Disable drag and select with jquery functions
