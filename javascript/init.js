@@ -27,13 +27,13 @@ $('.fixed-action-btn').click(() => {
 })
 
 appendUserInfo = () => {
+    // TODO: Log in with passport
     const userInfoElement = $('#slide-out').children().first()
     userInfoElement.click(logout)
     userInfoElement.html('<a class="waves-effect" href="#"><i class="material-icons">person</i> Sign out</a>')
 }
 
 logout = () => {
-    console.log('fire')
     $.get('/logout', (data) => {
         console.log(data)
         if (!data.success) {
@@ -41,7 +41,7 @@ logout = () => {
             return
         }
         removeItemFromLocalStorage('currentUser')
-        location.reload()
+        $(location).attr('href', '/login')
     })
 }
 // TODO: Disable drag and select with jquery functions

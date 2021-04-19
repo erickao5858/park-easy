@@ -14,7 +14,7 @@ router.get('/listView', (req, res) => {
     res.sendFile('listView.html', { root: htmlLocation })
 })
 
-router.get('/settings', (req, res) => {
+router.get('/settings', connectEnsureLogin.ensureLoggedIn(), (req, res) => {
     res.sendFile('settings.html', { root: htmlLocation })
 })
 
@@ -22,7 +22,7 @@ router.get('/test', (req, res) => {
     res.sendFile('test.html', { root: htmlLocation })
 })
 
-router.get('/register', (req, res) => {
+router.get('/register', connectEnsureLogin.ensureLoggedOut(), (req, res) => {
     res.sendFile('register.html', { root: htmlLocation })
 })
 
