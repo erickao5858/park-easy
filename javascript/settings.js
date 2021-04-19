@@ -1,4 +1,4 @@
-let userSettings = []
+let userSettings
 $(document).ready(() => {
     userSettings = getItemFromLocalStorage('settingValues')
     if (!userSettings) initUserSettings(settingItems)
@@ -6,6 +6,7 @@ $(document).ready(() => {
 })
 
 const initUserSettings = (settingItems) => {
+    userSettings = []
     settingItems.forEach(item => {
         userSettings.push({
             'name': item.name,
@@ -13,6 +14,7 @@ const initUserSettings = (settingItems) => {
             'value': item.default
         })
     })
+    setItemToLocalStorage('settingValues', userSettings)
 }
 
 const showSettings = (settingItems) => {

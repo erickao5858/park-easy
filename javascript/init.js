@@ -35,7 +35,6 @@ appendUserInfo = () => {
 
 logout = () => {
     $.get('/logout', (data) => {
-        console.log(data)
         if (!data.success) {
             M.toast({ html: 'Connection failed!' })
             return
