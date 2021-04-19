@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const htmlLocation = './public'
+const htmlLocation = './public/html'
 
 router.get('/', (req, res) => {
     res.sendFile('mapView.html', { root: htmlLocation })
