@@ -1,4 +1,6 @@
 $(document).ready(() => {
+    // TODO: Redirect user in server-side
+    if(currentUser) $(location).attr('href', '/')
     // Bind click event to register button
     $('#btn-register').click(register)
 })
@@ -10,7 +12,9 @@ const register = () => {
     // Get username and password
     const username = $('#username').val()
     const password = $('#password').val()
-    $.post('/register', { username: username, password: password }, (data) => {
+    // TODO: Extract url as constant
+    // Write a function to switch development and production mode
+    $.post('http://localhost:3001/register', { username: username, password: password }, (data) => {
         if (!data.success) {
             // Register failed
             M.toast({ html: 'User exist!' })
