@@ -22,6 +22,6 @@ const login = () => {
             userID: user._id
         }
         setItemToLocalStorage('currentUser', currentUser)
-        $(location).attr('href', '/')
+        $(location).attr('href', '/settings')
     })
 }

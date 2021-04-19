@@ -29,8 +29,8 @@ exports.logout = (req, res) => {
 exports.register = (req, res) => {
     User.register({ username: req.body.username, active: false }, req.body.password, (err) => {
         if (err) {
-            return res.redirect('/register?info=' + err.message)
+            return res.json({ success: false })
         }
-        return res.redirect('/register?info=' + 'successful')
+        return res.json({ success: true })
     })
 }
