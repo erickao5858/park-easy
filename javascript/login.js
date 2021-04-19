@@ -12,7 +12,7 @@ const login = () => {
     const password = $('#password').val()
     $.post('http://localhost:3001/login', { username: username, password: password }, (data) => {
         const user = data
-        if (!user) {
+        if (!user.username) {
             // User not found
             M.toast({ html: 'Incorrect username or password' })
             return
