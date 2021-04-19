@@ -9,7 +9,6 @@ app.use(express.static(__dirname))
 
 const bodyParser = require('body-parser')
 const expressSession = require('express-session')({
-    // Salt
     secret: 'parkeasy',
     resave: false,
     saveUninitialized: false
@@ -21,12 +20,6 @@ app.use(expressSession)
 
 const port = process.env.PORT || 3000
 app.listen(port, () => console.log(strings.SERVER_STARTED, port))
-
-/** Passport Setup */
-const passport = require('passport')
-
-app.use(passport.initialize())
-app.use(passport.session())
 
 /** Routes */
 const htmlRoute = require('./routes/htmlRoute')
