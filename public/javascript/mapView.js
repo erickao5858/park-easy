@@ -3,6 +3,17 @@
 let map
 
 $(document).ready(() => {
+    // TODO: NOT IN MVP
+    // Display a component that covers the whole page
+    // and a button allows user to refresh the page
+    navigator.geolocation.getCurrentPosition((position) => {
+        userCoordinates = position.coords
+    }, () => {
+        M.toast({ html: 'Failed to get user location, please allow location access!' })
+        $('#map').remove()
+    }, {
+        enableHighAccuracy: true
+    })
     // Mapbox API token
     const accessToken = 'pk.eyJ1IjoiZXJpY2thbyIsImEiOiJja25qMzhldmgwYThwMm5tZjh2bjBsdmQxIn0.3z4PTxSU8z0A_ggSYH3FCQ'
     map = new Mapbox(accessToken)
