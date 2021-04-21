@@ -32,11 +32,20 @@ var map = new mapboxgl.Map({
             // Request parameter includes current position
             // The server only returns parking bays around the user
 
-            // Format data for POI
-            const POIs = createPOIs(data)
+            $.get('https://1b662c15.us-south.apigw.appdomain.cloud/park-easy-data/location', (data) => {
+                if (!data.success) {
+                    // Cannot retrieve locations
+                    M.toast({ html: 'Location server undre maintenance, please come back later!' })
+                    return
+                }
+                const locationData = data.locations
 
-            // Refresh map POIs
-            refreshPOI(POIs)
+                // Format data for POI
+                const POIs = createPOIs(locationData)
+
+                // Refresh map POIs
+                refreshPOI(POIs)
+            })
         })
     }
 )
@@ -116,9 +125,9 @@ const refreshPOI = (POIs) => {
 }
 
 // Convert rawdata into POI data
-const createPOIs = (data) => {
+const createPOIs = (locations) => {
     let POIs = []
-    data.locations.forEach(location => {
+    locations.forEach(location => {
         let POI = {
             'type': 'Feature',
             'geometry': {
