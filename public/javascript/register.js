@@ -14,7 +14,7 @@ const register = () => {
     const password = $('#password').val()
     // TODO: Extract url as constant
     // Write a function to switch development and production mode
-    $.post('http://localhost:3001/register', { username: username, password: password }, (data) => {
+    $.post('https://park-easy-api.mybluemix.net/register', { username: username, password: password }, (data) => {
         if (!data.success) {
             // Register failed
             M.toast({ html: 'User exist!' })
