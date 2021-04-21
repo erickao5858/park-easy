@@ -1,36 +1,35 @@
 const settingItems = [
     {
-        "name": "Free parking bays only",
+        "name": "Hide unavailable locations",
         "type": "checkbox",
         "default": false
     },
     {
-        "name": "Refresh page every minute",
+        "name": "Refresh locations every minute",
         "type": "checkbox",
         "default": false
     }
 ]
 let userSettings
 $(document).ready(() => {
-    if(!currentUser) $(location).attr('href', '/login')
+    //if (!currentUser) $(location).attr('href', '/login')
     userSettings = getItemFromLocalStorage('settingValues')
-    if (!userSettings) initUserSettings(settingItems)
-    showSettings(userSettings)
+    if (!userSettings) {
+        initUserSettings(settingItems)
+        showSettings(settingItems)
+    }
+    showSettings(settingItems, userSettings)
 })
 
 const initUserSettings = (settingItems) => {
-    userSettings = []
+    userSettings = {}
     settingItems.forEach(item => {
-        userSettings.push({
-            'name': item.name,
-            'type': item.type,
-            'value': item.default
-        })
+        userSettings[item.name] = item.default
     })
     setItemToLocalStorage('settingValues', userSettings)
 }
 
-const showSettings = (settingItems) => {
+const showSettings = (settingItems, userSettings) => {
     settingItems.forEach(item => {
         $('.collection').append($('#template-collection-item').html())
         let element = $('.collection').children().last()
@@ -40,7 +39,8 @@ const showSettings = (settingItems) => {
         // Determine type of setting item and create corresponding component
         let control = element.find('input')
         control.bind('click', { settingName: item.name }, updateSetting)
-        control.prop('checked', item.value)
+        if (!userSettings) control.prop('checked', item.value)
+        else control.prop('checked', userSettings[item.name])
     })
 }
 
@@ -54,9 +54,7 @@ const updateSetting = (event) => {
     // Implement a function to solve toast spamming
     // allow 3 toasts at the same time
 
-    userSettings.forEach(setting => {
-        if (setting.name == settingName) setting.value = settingValue
-    })
+    userSettings[settingName] = settingValue
     try {
         setItemToLocalStorage('settingValues', userSettings)
         M.toast({ html: 'Settings updated' })
