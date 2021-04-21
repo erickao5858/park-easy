@@ -14,7 +14,7 @@ $(document).ready(() => {
 const showLocations = (data) => {
     // TODO: NOT IN MAP
     // add loading effect
-    
+
     // Wait for user location data
     if (!userCoordinates) {
         setTimeout(() => {
@@ -30,8 +30,16 @@ const showLocations = (data) => {
         element.find('p').html(
             location.baysAvailable + '/' + location.bays + ' spots' +
             '<br>' +
-            getDistance(location.coordinates[1], location.coordinates[0])
+            Utility.getDistance(userCoordinates.latitude, userCoordinates.longitude, location.coordinates[1], location.coordinates[0])
         )
         element.find('a').attr('href', 'https://www.google.com/maps/dir/?api=1&destination=' + location.coordinates[1] + ',' + location.coordinates[0] + '&travelmode=driving')
     })
+}
+
+const zoomImage = (obj) => {
+	// TODO: NOT IN MVP
+	// Undo function extraction
+	// Update image src
+	$('.modal').find('img').attr('src', obj.target.currentSrc).css('width', '100%')
+	$('.modal').modal('open')
 }

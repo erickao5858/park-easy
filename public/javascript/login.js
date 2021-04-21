@@ -20,7 +20,7 @@ const login = () => {
             userID: data.userID,
             username: data.username
         }
-        setItemToLocalStorage('currentUser', user)
+        Utility.setItemToLocalStorage('currentUser', user)
         $(location).attr('href', '/settings')
     })
 }

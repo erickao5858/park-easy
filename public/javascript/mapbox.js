@@ -6,6 +6,7 @@ class Mapbox {
     constructor(accessToken) {
         mapboxgl.accessToken = accessToken
     }
+
     /**
      * @summary Create a map object and attach to div with map id
      * @description After the map be fully loaded, the property 'isCustomImageLoaded' will return true
@@ -20,6 +21,7 @@ class Mapbox {
             center: [145.114641, -37.849003]
         }).on('load', this.loadCustomImage)
     }
+
     /**
      * @summary Load custom image for POIs
      * @property isCustomImageLoaded is a flag of task completion
@@ -33,6 +35,7 @@ class Mapbox {
             this.isCustomImageLoaded = true
         })
     }
+
     /**
      * @summary Activate geolocate function
      */
@@ -47,6 +50,7 @@ class Mapbox {
             })
         )
     }
+
     /**
      * @summary Remove POIs from map
      * @todo Extract layer id and source id as parameters
@@ -73,6 +77,7 @@ class Mapbox {
                 'features': POIs
             }
         })
+
         // Add a POI layer to map
         this.map.addLayer({
             'id': 'points',
@@ -95,6 +100,7 @@ class Mapbox {
             const coordinates = e.features[0].geometry.coordinates.slice()
             if (!this.generateLinkHTML) throw 'Map.generateLinkHtml must be defined first!'
             const description = this.generateLinkHTML(e)
+
             // Ensure that if the map is zoomed out such that multiple
             // copies of the feature are visible, the popup appears
             // over the copy being pointed to.

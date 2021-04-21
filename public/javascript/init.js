@@ -6,7 +6,7 @@ $(document).ready(() => {
     M.AutoInit()
 
     // Retrieve current user from local storage
-    currentUser = getItemFromLocalStorage('currentUser')
+    currentUser = Utility.getItemFromLocalStorage('currentUser')
     if (currentUser) appendUserInfo()
 
     // TODO: Extract as a function
@@ -34,7 +34,7 @@ appendUserInfo = () => {
 }
 
 logout = () => {
-    removeItemFromLocalStorage('currentUser')
+    Utility.removeItemFromLocalStorage('currentUser')
     $(location).attr('href', '/login')
 }
 

@@ -13,16 +13,18 @@ $(document).ready(() => {
 
     // Activate geolocate function
     map.activateGeolocateControl()
-    
+
     // Implement function required
     map.generateLinkHTML = (e) => {
         title = e.features[0].properties.title
         coordinates = e.features[0].geometry.coordinates
         bays = e.features[0].properties.bays
+
         // TODO: NOT IN MVP
         // Use jquery to formulate html
+
         return '<b>' + title + '</b>' + '<div>' +
-            getDistance(coordinates[1], coordinates[0]) + '<br>' +
+            Utility.getDistance(userCoordinates.latitude, userCoordinates.longitude, coordinates[1], coordinates[0]) + '<br>' +
             bays + '<br>' +
             '<a href="https://www.google.com/maps/dir/?api=1&destination=' +
             coordinates[1] + ',' + coordinates[0] + '&travelmode=driving" target="_blank">Navi to here</a>' +
@@ -52,6 +54,7 @@ const refreshPOIs = () => {
         }
         // Convert data into POIs
         const POIs = createPOIs(data.locations)
+
         // Remove existing POIs and append new POIs
         map.removePOIs()
         map.appendPOIs(POIs)
