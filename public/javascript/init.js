@@ -37,4 +37,12 @@ logout = () => {
     removeItemFromLocalStorage('currentUser')
     $(location).attr('href', '/login')
 }
-// TODO: Disable drag and select with jquery functions
+
+$(document).ajaxError((event, jqxhr, settings, thrownError) => {
+    // TODO: NOT IN MVP
+    // Add a service unavailable control that covers the whole page
+    // and add a button that allows the user to refresh the page
+    // TODO: Extract this as a function and let other similar errors call this function
+    M.toast({ html: 'Service unavailable, please check your network status!' })
+})
+  // TODO: Disable drag and select with jquery functions
