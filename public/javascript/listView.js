@@ -1,6 +1,14 @@
 // TODO: Implement setting variance
 $(document).ready(() => {
-    showLocations(data)
+    $.get('https://1b662c15.us-south.apigw.appdomain.cloud/park-easy-data/location', (data) => {
+        if (!data.success) {
+            // Cannot retrieve locations
+            M.toast({ html: 'Location server undre maintenance, please come back later!' })
+            return
+        }
+        const locationData = data.locations
+        showLocations(data)
+    })
 })
 
 const showLocations = (data) => {

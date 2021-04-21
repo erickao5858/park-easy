@@ -1,3 +1,15 @@
+const settingItems = [
+    {
+        "name": "Free parking bays only",
+        "type": "checkbox",
+        "default": false
+    },
+    {
+        "name": "Refresh page every minute",
+        "type": "checkbox",
+        "default": false
+    }
+]
 let userSettings
 $(document).ready(() => {
     if(!currentUser) $(location).attr('href', '/login')
