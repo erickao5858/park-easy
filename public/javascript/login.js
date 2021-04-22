@@ -10,7 +10,9 @@ const login = () => {
     // Get username and password
     const username = $('#username').val()
     const password = $('#password').val()
-    $.post('https://park-easy-api.mybluemix.net/login', { username: username, password: password }, (data) => {
+    
+    const url = DEV_MODE ? API_URL['DEV'] : API_URL['PRO']
+    $.post(url + 'login', { username: username, password: password }, (data) => {
         if (!data.success) {
             // User not found
             M.toast({ html: 'Incorrect username or password' })
@@ -20,7 +22,7 @@ const login = () => {
             userID: data.userID,
             username: data.username
         }
-        setItemToLocalStorage('currentUser', user)
+        Utility.setItemToLocalStorage('currentUser', user)
         $(location).attr('href', '/settings')
     })
 }

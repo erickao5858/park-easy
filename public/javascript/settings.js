@@ -12,13 +12,15 @@ const settingItems = [
 ]
 let userSettings
 $(document).ready(() => {
-    //if (!currentUser) $(location).attr('href', '/login')
-    userSettings = getItemFromLocalStorage('settingValues')
+    if (!currentUser) $(location).attr('href', '/login')
+    userSettings = Utility.getItemFromLocalStorage('settingValues')
     if (!userSettings) {
         initUserSettings(settingItems)
         showSettings(settingItems)
     }
-    showSettings(settingItems, userSettings)
+    else {
+        showSettings(settingItems, userSettings)
+    }
 })
 
 const initUserSettings = (settingItems) => {
@@ -26,7 +28,7 @@ const initUserSettings = (settingItems) => {
     settingItems.forEach(item => {
         userSettings[item.name] = item.default
     })
-    setItemToLocalStorage('settingValues', userSettings)
+    Utility.setItemToLocalStorage('settingValues', userSettings)
 }
 
 const showSettings = (settingItems, userSettings) => {
@@ -56,7 +58,7 @@ const updateSetting = (event) => {
 
     userSettings[settingName] = settingValue
     try {
-        setItemToLocalStorage('settingValues', userSettings)
+        Utility.setItemToLocalStorage('settingValues', userSettings)
         M.toast({ html: 'Settings updated' })
     } catch (e) {
         M.toast({ html: 'Error: ' + e.message })

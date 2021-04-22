@@ -1,32 +1,56 @@
-//:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-//:::                                                                         :::
-//:::  This routine calculates the distance between two points (given the     :::
-//:::  latitude/longitude of those points). It is being used to calculate     :::
-//:::  the distance between two locations using GeoDataSource (TM) prodducts  :::
-//:::                                                                         :::
-//:::  Definitions:                                                           :::
-//:::    South latitudes are negative, east longitudes are positive           :::
-//:::                                                                         :::
-//:::  Passed to function:                                                    :::
-//:::    lat1, lon1 = Latitude and Longitude of point 1 (in decimal degrees)  :::
-//:::    lat2, lon2 = Latitude and Longitude of point 2 (in decimal degrees)  :::
-//:::    unit = the unit you desire for results                               :::
-//:::           where: 'M' is statute miles (default)                         :::
-//:::                  'K' is kilometers                                      :::
-//:::                  'N' is nautical miles                                  :::
-//:::                                                                         :::
-//:::  Worldwide cities and other features databases with latitude longitude  :::
-//:::  are available at https://www.geodatasource.com                         :::
-//:::                                                                         :::
-//:::  For enquiries, please contact sales@geodatasource.com                  :::
-//:::                                                                         :::
-//:::  Official Web site: https://www.geodatasource.com                       :::
-//:::                                                                         :::
-//:::               GeoDataSource.com (C) All Rights Reserved 2018            :::
-//:::                                                                         :::
-//:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+const Utility = {}
 
-function distance(lat1, lon1, lat2, lon2, unit) {
+/**
+ * @summary Calculate distance between two locations
+ * @param {number} staLat Location A Latitude
+ * @param {number} staLng Location A Longitude
+ * @param {number} desLat Location B Latitude
+ * @param {number} desLng Location B Longitude
+ * @returns Distance in km unit with 1 decimal place
+ */
+Utility.getDistance = (staLat, staLng, desLat, desLng) => {
+	let tmp = Utility.distance(staLat, staLng, desLat, desLng, 'K')
+	tmp = Math.round(tmp * 10) / 10
+	return tmp + 'km'
+}
+
+/**
+ * @summary Retrieve an item from local storage
+ * @param {string} key Item key
+ * @returns {object} Data in its original form
+ */
+Utility.getItemFromLocalStorage = (key) => {
+	return JSON.parse(localStorage.getItem(key))
+}
+
+/**
+ * @summary Store an item to local storage
+ * @param {string} key Item key
+ * @param {object} data Data in its original form
+ */
+Utility.setItemToLocalStorage = (key, data) => {
+	localStorage.setItem(key, JSON.stringify(data))
+}
+
+/**
+ * @summary Remove an item from local storage
+ * @param {string} key Item key
+ */
+Utility.removeItemFromLocalStorage = (key) => {
+	localStorage.removeItem(key)
+}
+
+/**
+ * @summary Calculate distance between two locations
+ * @param {*} lat1 Location A Latitude
+ * @param {*} lon1 Location A Longitude
+ * @param {*} lat2 Location B Latitude
+ * @param {*} lon2 Location B Longitude
+ * @param {*} unit Distance unit
+ * @returns Distance in required unit
+ * @copyright GeoDataSource.com
+ */
+Utility.distance = (lat1, lon1, lat2, lon2, unit) => {
 	if ((lat1 == lat2) && (lon1 == lon2)) {
 		return 0;
 	}
@@ -46,45 +70,4 @@ function distance(lat1, lon1, lat2, lon2, unit) {
 		if (unit == "N") { dist = dist * 0.8684 }
 		return dist;
 	}
-}
-
-const getDistance = (desLat, desLng) => {
-	let tmp = distance(userCoordinates.latitude, userCoordinates.longitude, desLat, desLng, 'K')
-	tmp = Math.round(tmp * 10) / 10
-	return tmp + 'km'
-}
-
-const zoomImage = (obj) => {
-	// TODO: NOT IN MVP
-	// Undo function extraction
-	// Update image src
-	$('.modal').find('img').attr('src', obj.target.currentSrc).css('width', '100%')
-	$('.modal').modal('open')
-}
-
-/**
- * Retrieve an item from local storage
- * @param {string} key item key
- * @returns {object}
- */
-const getItemFromLocalStorage = (key) => {
-	return JSON.parse(localStorage.getItem(key))
-}
-
-
-/**
- * Store an item to local storage
- * @param {string} key item key
- * @param {object} data data object
- */
-const setItemToLocalStorage = (key, data) => {
-	localStorage.setItem(key, JSON.stringify(data))
-}
-
-/**
- * Remove an item from local storage
- * @param {string} key item key
- */
-const removeItemFromLocalStorage = (key) => {
-	localStorage.removeItem(key)
 }
