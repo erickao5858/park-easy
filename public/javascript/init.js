@@ -17,13 +17,12 @@ $('.fixed-action-btn').click(() => {
 appendUserInfo = () => {
     // TODO: Log in with passport
     const userInfoElement = $('#slide-out').children().first()
-    userInfoElement.click(logout)
+    userInfoElement.click(() => {
+        // Logout user
+        Utility.removeItemFromLocalStorage('currentUser')
+        $(location).attr('href', '/login')
+    })
     userInfoElement.html('<a class="waves-effect" href="#"><i class="material-icons">person</i> Sign out</a>')
-}
-
-logout = () => {
-    Utility.removeItemFromLocalStorage('currentUser')
-    $(location).attr('href', '/login')
 }
 
 $(document).ajaxError((event, jqxhr, settings, thrownError) => {

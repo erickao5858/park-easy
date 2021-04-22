@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
+// Default html location
 const htmlLocation = './public/html'
 
 router.get('/', (req, res) => {
