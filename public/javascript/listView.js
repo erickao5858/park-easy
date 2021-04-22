@@ -12,7 +12,7 @@ $(document).ready(() => {
     }, {
         enableHighAccuracy: true
     })
-    $.get('https://1b662c15.us-south.apigw.appdomain.cloud/park-easy-data/location', (data) => {
+    $.get(DATA_URL, (data) => {
         if (!data.success) {
             // Cannot retrieve locations
             M.toast({ html: 'Location server undre maintenance, please come back later!' })

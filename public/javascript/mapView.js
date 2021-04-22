@@ -57,7 +57,7 @@ $(document).ready(() => {
  * The server should only return parking bays around the user
  */
 const refreshPOIs = () => {
-    $.get('https://1b662c15.us-south.apigw.appdomain.cloud/park-easy-data/location', (data) => {
+    $.get(DATA_URL, (data) => {
         if (!data.success) {
             // Cannot retrieve locations
             M.toast({ html: 'Location server under maintenance, please come back later!' })

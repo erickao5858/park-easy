@@ -1,6 +1,13 @@
 // TODO: Migrate to listView.js and mapView.js
 let userCoordinates
 let currentUser
+const DEV_MODE = false
+const API_URL = {
+    'PRO':'https://park-easy-api.mybluemix.net/',
+    'DEV':'http://localhost:3001/'
+}
+const DATA_URL = 'https://1b662c15.us-south.apigw.appdomain.cloud/park-easy-data/location'
+
 $(document).ready(() => {
     // Initialize materializecss components
     M.AutoInit()
