@@ -1,6 +1,6 @@
 {
   "name": "park-easy-web",
-  "version": "0.5.0",
+  "version": "1.0.0",
   "description": "An web-based application that helps people in finding available roadside parking bays.",
   "main": "server.js",
   "scripts": {
