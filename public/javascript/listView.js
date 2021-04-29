@@ -15,7 +15,7 @@ $(document).ready(() => {
     $.get(DATA_URL, (data) => {
         if (!data.success) {
             // Cannot retrieve locations
-            M.toast({ html: 'Location server undre maintenance, please come back later!' })
+            M.toast({ html: 'Location server under maintenance, please come back later!' })
             return
         }
         showLocations(data.locations)
