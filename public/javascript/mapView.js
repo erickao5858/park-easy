@@ -76,7 +76,17 @@ const refreshPOIs = () => {
  * @summary Convert location data into POI data
  * @param {JSON} locations location data
  * @returns POIs readable by Mapbox API
- * @todo Add example to this JSDocs
+ * @example locations: [{
+    "bays": 10,
+    "baysAvailable": 10,
+    "coordinates": [145.109342, -37.848027],
+    "title": "Elgar Rd/Burwood Hwy"
+  }, {
+    "bays": 8,
+    "baysAvailable": 8,
+    "coordinates": [145.120227, -37.849891],
+    "title": "Station St/Burwood Hwy"
+  }]
  */
 const createPOIs = (locations) => {
     let POIs = []
