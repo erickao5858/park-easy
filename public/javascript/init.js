@@ -1,7 +1,7 @@
 // TODO: Migrate to listView.js and mapView.js
 let userCoordinates
 let currentUser
-const DEV_MODE = false
+const DEV_MODE = true
 const API_URL = {
     'PRO':'https://park-easy-api.mybluemix.net/',
     'DEV':'http://localhost:3001/'
