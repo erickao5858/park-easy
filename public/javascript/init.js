@@ -6,6 +6,7 @@ const API_URL = {
     'PRO':'https://park-easy-api.mybluemix.net/',
     'DEV':'http://localhost:3001/'
 }
+const url = DEV_MODE ? API_URL['DEV'] : API_URL['PRO']
 const DATA_URL = 'https://1b662c15.us-south.apigw.appdomain.cloud/park-easy-data/location'
 
 $(document).ready(() => {
