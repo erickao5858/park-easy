@@ -1,23 +1,53 @@
 let userSettings
+let settingItems
 $(document).ready(() => {
     if (!currentUser) $(location).attr('href', '/login')
 
-    const url = DEV_MODE ? API_URL['DEV'] : API_URL['PRO']
     $.get(url + 'settingItem', (data) => {
         if (!data.success) {
             // Cannot retrieve setting items
             M.toast({ html: 'Server under maintenance, please come back later!' })
             return
         }
-        const settingItems = data.settingItems
+        settingItems = data.settingItems
 
         userSettings = Utility.getItemFromLocalStorage('settingValues')
-        updateUserSettings(settingItems)
-        showSettings(settingItems, userSettings)
+        updateUserSettings()
+        showSettings()
+    })
+
+    $('.btn-sync').click((obj) => {
+        const type = $(obj.target).text()
+        syncSettings(type)
     })
 })
 
-const updateUserSettings = (settingItems) => {
+const syncSettings = (method) => {
+    if (method == 'Save') {
+        $.post(url + 'userSetting', { userID: currentUser.userID, userSettings: JSON.stringify(userSettings) }, (data) => {
+            if (!data.success) {
+                // Cannot retrieve setting items
+                M.toast({ html: data.err.message })
+                return
+            }
+            M.toast({ html: 'Settings saved!' })
+        })
+    }
+    else {
+        $.get(url + 'userSetting?userID='+ currentUser.userID, (data) => {
+            if (!data.success) {
+                // Cannot retrieve setting items
+                M.toast({ html: data.err.message })
+                return
+            }
+            userSettings = JSON.parse(data.userSettings.settings)
+            Utility.setItemToLocalStorage('settingValues', userSettings)
+            showSettings()
+            M.toast({ html: 'Settings loaded!' })
+        })
+    }
+}
+const updateUserSettings = () => {
     if (!userSettings) userSettings = {}
     settingItems.forEach(item => {
         if (!userSettings.hasOwnProperty(item.name)) userSettings[item.name] = item.default
@@ -25,7 +55,8 @@ const updateUserSettings = (settingItems) => {
     Utility.setItemToLocalStorage('settingValues', userSettings)
 }
 
-const showSettings = (settingItems, userSettings) => {
+const showSettings = () => {
+    $('.collection').empty()
     settingItems.forEach(item => {
         $('.collection').append($('#template-collection-item').html())
         let element = $('.collection').children().last()
@@ -33,7 +64,7 @@ const showSettings = (settingItems, userSettings) => {
 
         // TODO: NOT IN MVP
         // Determine type of setting item and create corresponding component
-        if (settingItems.type == "boolean") {
+        if (item.type == "boolean") {
             let control = element.find('input')
             control.bind('click', { settingName: item.name }, updateSetting)
             control.prop('checked', userSettings[item.name])
@@ -54,7 +85,7 @@ const updateSetting = (event) => {
     userSettings[settingName] = settingValue
     try {
         Utility.setItemToLocalStorage('settingValues', userSettings)
-        M.toast({ html: 'Settings updated' })
+        M.toast({ html: 'Settings updated!' })
     } catch (e) {
         M.toast({ html: 'Error: ' + e.message })
     }
