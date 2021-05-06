@@ -25,7 +25,6 @@ class Mapbox {
     /**
      * @summary Load custom image for POIs
      * @property isCustomImageLoaded is a flag of task completion
-     * @todo Extract url as a parameter
      */
     loadCustomImage = () => {
         this.isCustomImageLoaded = false
