@@ -13,7 +13,6 @@ const register = () => {
     const username = $('#username').val()
     const password = $('#password').val()
 
-    const url = DEV_MODE ? API_URL['DEV'] : API_URL['PRO']
     $.post(url + 'register', { username: username, password: password }, (data) => {
         if (!data.success) {
             // Register failed

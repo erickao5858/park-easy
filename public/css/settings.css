@@ -13,3 +13,7 @@ html, body {
 .switch {
     float: right;
 }
+
+.container {
+    margin-top: 20%;
+}
