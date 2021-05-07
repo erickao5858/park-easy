@@ -12,6 +12,8 @@ $(document).ready(() => {
     // Initialize materializecss components
     M.AutoInit()
 
+    detectBrowserType()
+
     // Retrieve current user from local storage
     currentUser = Utility.getItemFromLocalStorage('currentUser')
     if (currentUser) appendUserInfo()
@@ -20,6 +22,17 @@ $('.fixed-action-btn').click(() => {
     // Let the button triggers side navigator
     $('.sidenav').sidenav('open')
 })
+
+detectBrowserType = () => {
+    var ua = navigator.userAgent
+    console.log(ua)
+    ua = ua.toLowerCase()
+
+    //Check User Agent string for "mobi" and if not route to Desktop page
+    if (!ua.includes('mobi')) {
+        alert('This website is incompitable with desktop environment, some functions might not work properly.')
+    }
+}
 
 appendUserInfo = () => {
     // TODO: Log in with passport
