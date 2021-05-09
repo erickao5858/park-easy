@@ -3,8 +3,8 @@ let userCoordinates
 let currentUser
 const DEV_MODE = false
 const API_URL = {
-    'PRO':'https://park-easy-api.mybluemix.net/',
-    'DEV':'http://localhost:3001/'
+    'PRO': 'https://park-easy-api.mybluemix.net/',
+    'DEV': 'http://localhost:3001/'
 }
 const url = DEV_MODE ? API_URL['DEV'] : API_URL['PRO']
 const DATA_URL = 'https://1b662c15.us-south.apigw.appdomain.cloud/park-easy-data/location'
@@ -17,6 +17,7 @@ $(document).ready(() => {
     currentUser = Utility.getItemFromLocalStorage('currentUser')
     if (currentUser) appendUserInfo()
 })
+
 $('.fixed-action-btn').click(() => {
     // Let the button triggers side navigator
     $('.sidenav').sidenav('open')
