@@ -16,7 +16,7 @@ const register = () => {
     $.post(url + 'register', { username: username, password: password }, (data) => {
         if (!data.success) {
             // Register failed
-            M.toast({ html: 'User exist!' })
+            M.toast({ html: 'Action failed: ' + data.err.message })
             return
         }
         $('form').trigger('reset')

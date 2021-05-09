@@ -10,16 +10,16 @@ const login = () => {
     // Get username and password
     const username = $('#username').val()
     const password = $('#password').val()
-    
+
     $.post(url + 'login', { username: username, password: password }, (data) => {
         if (!data.success) {
             // User not found
-            M.toast({ html: 'Incorrect username or password' })
+            M.toast({ html: data.err.message })
             return
         }
         const user = {
-            userID: data.userID,
-            username: data.username
+            username: data.username,
+            token: data.token
         }
         Utility.setItemToLocalStorage('currentUser', user)
         $(location).attr('href', '/settings')

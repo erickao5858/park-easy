@@ -1,12 +1,10 @@
 let userSettings
 let settingItems
 $(document).ready(() => {
-    if (!currentUser) $(location).attr('href', '/login')
-
     $.get(url + 'settingItem', (data) => {
         if (!data.success) {
             // Cannot retrieve setting items
-            M.toast({ html: 'Server under maintenance, please come back later!' })
+            M.toast({ html: 'Cannot retrieve new setting items!' })
             return
         }
         settingItems = data.settingItems
@@ -23,8 +21,12 @@ $(document).ready(() => {
 })
 
 const syncSettings = (method) => {
+    if (!currentUser) {
+        M.toast({ html: 'Action requires login!' })
+        return
+    }
     if (method == 'Save') {
-        $.post(url + 'userSetting', { userID: currentUser.userID, userSettings: JSON.stringify(userSettings) }, (data) => {
+        $.post(url + 'userSetting', { token: currentUser.token, userSettings: JSON.stringify(userSettings) }, (data) => {
             if (!data.success) {
                 // Cannot retrieve setting items
                 M.toast({ html: data.err.message })
@@ -34,7 +36,7 @@ const syncSettings = (method) => {
         })
     }
     else {
-        $.get(url + 'userSetting?userID='+ currentUser.userID, (data) => {
+        $.get(url + 'userSetting?token=' + currentUser.token, (data) => {
             if (!data.success) {
                 // Cannot retrieve setting items
                 M.toast({ html: data.err.message })

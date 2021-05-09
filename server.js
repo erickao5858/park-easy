@@ -15,8 +15,13 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(expressSession)
 
+const log4js = require('log4js')
+const logger = log4js.getLogger('Server')
+logger.level = 'debug'
+
 const port = process.env.PORT || 3000
-app.listen(port, () => console.log('Server started, listening on', port))
+
+app.listen(port, () => logger.info('Server started, listening on', port))
 
 /** Routes */
 const htmlRoute = require('./routes/htmlRoute')
