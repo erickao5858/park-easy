@@ -33,13 +33,22 @@ $(document).ready(() => {
 
         // TODO: NOT IN MVP
         // Use jquery to formulate html
+        const wrapper = $('<div/>')
+        const header = $('<b/>').text(title)
+        const distance = Utility.getDistance(userCoordinates.latitude, userCoordinates.longitude, coordinates[1], coordinates[0])
+        wrapper.append(header)
+        const content = $('<div/>')
+        wrapper.append(content)
+        content.append(distance)
+        content.append($('<br/>'))
+        content.append('10/15 spots')
+        content.append($('<br/>'))
+        const link = $('<a/>').text('Navi to here')
+        .attr('href', 'https://www.google.com/maps/dir/?api=1&destination='+coordinates[1] + ',' + coordinates[0] + '&travelmode=driving')
+        .attr('target','_blank')
+        content.append(link)
+        return wrapper.html()
 
-        return '<b>' + title + '</b>' + '<div>' +
-            Utility.getDistance(userCoordinates.latitude, userCoordinates.longitude, coordinates[1], coordinates[0]) + '<br>' +
-            bays + '<br>' +
-            '<a href="https://www.google.com/maps/dir/?api=1&destination=' +
-            coordinates[1] + ',' + coordinates[0] + '&travelmode=driving" target="_blank">Navi to here</a>' +
-            '</div>'
     }
 
     // Wait for map
