@@ -31,15 +31,12 @@ $(document).ready(() => {
         coordinates = e.features[0].geometry.coordinates
         bays = e.features[0].properties.bays
 
-        // TODO: NOT IN MVP
-        // Use jquery to formulate html
         const wrapper = $('<div/>')
         const header = $('<b/>').text(title)
-        const distance = Utility.getDistance(userCoordinates.latitude, userCoordinates.longitude, coordinates[1], coordinates[0])
         wrapper.append(header)
         const content = $('<div/>')
         wrapper.append(content)
-        content.append(distance)
+        content.append(Utility.getDistance(userCoordinates.latitude, userCoordinates.longitude, coordinates[1], coordinates[0]))
         content.append($('<br/>'))
         content.append(bays)
         content.append($('<br/>'))
@@ -48,7 +45,6 @@ $(document).ready(() => {
         .attr('target','_blank')
         content.append(link)
         return wrapper.html()
-
     }
 
     // Wait for map
