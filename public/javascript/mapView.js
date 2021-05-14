@@ -41,7 +41,7 @@ $(document).ready(() => {
         wrapper.append(content)
         content.append(distance)
         content.append($('<br/>'))
-        content.append('10/15 spots')
+        content.append('10/15')
         content.append($('<br/>'))
         const link = $('<a/>').text('Navi to here')
         .attr('href', 'https://www.google.com/maps/dir/?api=1&destination='+coordinates[1] + ',' + coordinates[0] + '&travelmode=driving')
