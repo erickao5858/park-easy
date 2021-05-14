@@ -71,3 +71,9 @@ Utility.distance = (lat1, lon1, lat2, lon2, unit) => {
 		return dist;
 	}
 }
+
+Utility.getUrlParam = (key) => {
+	const query = window.location.search
+	const params = new URLSearchParams(query)
+	return params.get(key)
+}
