@@ -1,6 +1,8 @@
 $(document).ready(() => {
     // Bind click event to login button
-    $('#btn-login').click(login)
+    $('.btn-login').click(login)
+    const data = JSON.parse(Utility.getUrlParam('data'))
+    if (data) handleLoginData(data)
 })
 
 const login = () => {
@@ -12,16 +14,20 @@ const login = () => {
     const password = $('#password').val()
 
     $.post(url + 'login', { username: username, password: password }, (data) => {
-        if (!data.success) {
-            // User not found
-            M.toast({ html: data.err.message })
-            return
-        }
-        const user = {
-            username: data.username,
-            token: data.token
-        }
-        Utility.setItemToLocalStorage('currentUser', user)
-        $(location).attr('href', '/settings')
+        handleLoginData(data)
     })
+}
+
+const handleLoginData = (data) => {
+    if (!data.success) {
+        // User not found
+        M.toast({ html: data.err.message })
+        return
+    }
+    const user = {
+        username: data.username,
+        token: data.token
+    }
+    Utility.setItemToLocalStorage('currentUser', user)
+    $(location).attr('href', '/settings')
 }
