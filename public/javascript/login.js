@@ -1,22 +1,11 @@
 $(document).ready(() => {
     // Bind click event to login button
-    $('.btn-login').click(login)
+    $('form').attr('action', url + 'auth/local')
+    $('.btn-login-google').attr('href', url + 'auth/google')
+    $('.btn-login-facebook').attr('href', url + 'auth/facebook')
     const data = JSON.parse(Utility.getUrlParam('data'))
     if (data) handleLoginData(data)
 })
-
-const login = () => {
-    // Validate input fields
-    if (!$('form')[0].reportValidity()) return
-
-    // Get username and password
-    const username = $('#username').val()
-    const password = $('#password').val()
-
-    $.post(url + 'login', { username: username, password: password }, (data) => {
-        handleLoginData(data)
-    })
-}
 
 const handleLoginData = (data) => {
     if (!data.success) {

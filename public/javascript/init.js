@@ -42,9 +42,9 @@ appendUserInfo = () => {
     userInfoElement.click(() => {
         // Logout user
         Utility.removeItemFromLocalStorage('currentUser')
-        $(location).attr('href', '/login')
+        $(location).attr('href', url + 'logout')
     })
-    userInfoElement.html('<a class="waves-effect" href="#"><i class="material-icons">person</i> Sign out</a>')
+    userInfoElement.html('<a class="waves-effect" href="#"><i class="material-icons">person</i>Sign out</a>')
 }
 
 $(document).ajaxError((event, jqxhr, settings, thrownError) => {
