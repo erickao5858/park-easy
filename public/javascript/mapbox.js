@@ -9,7 +9,6 @@ class Mapbox {
 
     /**
      * @summary Create a map object and attach to div with map id
-     * @description After the map be fully loaded, the property 'isCustomImageLoaded' will return true
      */
     showMap = () => {
         this.map = new mapboxgl.Map({
@@ -19,19 +18,17 @@ class Mapbox {
             minZoom: 13,
             zoom: 14,
             center: [145.114641, -37.849003]
-        }).on('load', this.loadCustomImage)
+        })
     }
 
     /**
      * @summary Load custom image for POIs
-     * @property isCustomImageLoaded is a flag of task completion
+     * @param url Url to image
+     * @param name Name of the image
      */
-    loadCustomImage = () => {
-        this.isCustomImageLoaded = false
-        this.map.loadImage('https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png', (err, image) => {
-            if (err) throw err
-            this.map.addImage('custom-marker', image)
-            this.isCustomImageLoaded = true
+    loadCustomImage = (url, name) => {
+        this.map.loadImage(url, (err, image) => {
+            this.map.addImage(name, image)
         })
     }
 
@@ -48,16 +45,6 @@ class Mapbox {
                 showAccuracyCircle: false
             })
         )
-    }
-
-    /**
-     * @summary Remove POIs from map
-     * @todo Extract layer id and source id as parameters
-     */
-    removePOIs = () => {
-        if (!this.map.getLayer('points')) return
-        this.map.removeLayer('points')
-        this.map.removeSource('points')
     }
 
     /**
@@ -82,7 +69,7 @@ class Mapbox {
             'type': 'symbol',
             'source': 'points',
             'layout': {
-                'icon-image': 'custom-marker',
+                'icon-image': ['get', 'icon'],
                 'text-field': ['get', 'title'],
                 'text-font': [
                     'Open Sans Semibold',
@@ -110,5 +97,22 @@ class Mapbox {
                 .setHTML(description)
                 .addTo(this.map)
         })
+    }
+
+    /**
+     * @summary Refresh source data
+     * @param {object} POIs POI data
+     */
+    updatePOIs = (POIs) => {
+        // If source not exists, create one
+        if(!this.map.getSource('points')){
+            this.appendPOIs(POIs)
+            return
+        }
+        const geojson = {
+            'type': 'FeatureCollection',
+            'features': POIs
+        }
+        this.map.getSource('points').setData(geojson)
     }
 }
