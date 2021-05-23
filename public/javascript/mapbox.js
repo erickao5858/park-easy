@@ -65,7 +65,6 @@ class Mapbox {
      * @param {JSON} POIs POI data
      * @requires generateLinkHTML function used for formulating the html inside POIs
      * @throws Map.generateLinkHtml not defined error
-     * @todo Add example to this JSDocs
      */
     appendPOIs = (POIs) => {
         // Bind POI data to map
