@@ -6,3 +6,9 @@ html, body {
 #map {
     height: 100%;
 }
+#btnMapRefresh {
+    margin-bottom: 10%;
+    margin-left: 5%;
+    position: fixed;
+    bottom: 0%;
+}

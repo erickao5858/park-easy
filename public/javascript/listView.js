@@ -20,6 +20,17 @@ $(document).ready(() => {
         }
         showLocations(data.locations)
     })
+    $("#btnListRefresh").on("click",function(){
+        $('.collection').html('')
+        $.get(DATA_URL, (data) => {
+            if (!data.success) {
+                // Cannot retrieve locations
+                M.toast({ html: 'Location server under maintenance, please come back later!' })
+                return
+            }
+            showLocations(data.locations)
+        })
+    });
 })
 
 const showLocations = (locations) => {

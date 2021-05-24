@@ -54,6 +54,57 @@ $(document).ready(() => {
             refreshPOIs()
         }
     }, 100)
+    $("#btnMapRefresh").on("click",function(){
+        navigator.geolocation.getCurrentPosition((position) => {
+            userCoordinates = position.coords
+        }, () => {
+            M.toast({ html: 'Failed to get user location, please allow location access!' })
+            $('#map').remove()
+        }, {
+            enableHighAccuracy: true
+        })
+        // Mapbox API token
+        const accessToken = 'pk.eyJ1IjoiZXJpY2thbyIsImEiOiJja25qMzhldmgwYThwMm5tZjh2bjBsdmQxIn0.3z4PTxSU8z0A_ggSYH3FCQ'
+        map = new Mapbox(accessToken)
+        map.showMap()
+    
+        // Center map to user location
+        // navigator.geolocation.getCurrentPosition((position) => map.setCenter([position.coords.longitude, position.coords.latitude]))
+    
+        // Activate geolocate function
+        map.activateGeolocateControl()
+    
+        // Implement function required
+        map.generateLinkHTML = (e) => {
+            title = e.features[0].properties.title
+            coordinates = e.features[0].geometry.coordinates
+            bays = e.features[0].properties.bays
+    
+            const wrapper = $('<div/>')
+            const header = $('<b/>').text(title)
+            wrapper.append(header)
+            const content = $('<div/>')
+            wrapper.append(content)
+            content.append(Utility.getDistance(userCoordinates.latitude, userCoordinates.longitude, coordinates[1], coordinates[0]))
+            content.append($('<br/>'))
+            content.append(bays)
+            content.append($('<br/>'))
+            const link = $('<a/>').text('Navi to here')
+            .attr('href', 'https://www.google.com/maps/dir/?api=1&destination='+coordinates[1] + ',' + coordinates[0] + '&travelmode=driving')
+            .attr('target','_blank')
+            content.append(link)
+            return wrapper.html()
+        }
+    
+        // Wait for map
+        let timer = setInterval(() => {
+            if (map.isCustomImageLoaded) {
+                clearInterval(timer)
+                refreshPOIs()
+            }
+        }, 100)
+
+    });
 })
 
 /**

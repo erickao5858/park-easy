@@ -17,3 +17,9 @@ html, body {
 .collection .collection-item.avatar .secondary-content {
     top: 26px;
 }
+#btnListRefresh {
+    margin-bottom: 10%;
+    margin-left: 5%;
+    position: fixed;
+    bottom: 0%;
+}
