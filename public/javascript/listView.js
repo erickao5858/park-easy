@@ -12,7 +12,7 @@ $(document).ready(() => {
     }, {
         enableHighAccuracy: true
     })
-    $.get(DATA_URL, (data) => {
+    $.post(DATA_URL,{}, (data) => {
         if (!data.success) {
             // Cannot retrieve locations
             M.toast({ html: 'Location server under maintenance, please come back later!' })

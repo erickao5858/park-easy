@@ -1,6 +1,6 @@
 // TODO: Implement setting variance
 
-let map
+let map, POIs
 
 $(document).ready(() => {
     // TODO: NOT IN MVP
@@ -62,14 +62,14 @@ $(document).ready(() => {
  * The server should only return parking bays around the user
  */
 const refreshPOIs = () => {
-    $.get(DATA_URL, (data) => {
+    $.post(DATA_URL,{}, (data) => {
         if (!data.success) {
             // Cannot retrieve locations
             M.toast({ html: 'Location server under maintenance, please come back later!' })
             return
         }
         // Convert data into POIs
-        const POIs = createPOIs(data.locations)
+        POIs = createPOIs(data.locations)
 
         // Remove existing POIs and append new POIs
         map.removePOIs()

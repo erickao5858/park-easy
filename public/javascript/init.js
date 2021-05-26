@@ -1,6 +1,7 @@
 // TODO: Migrate to listView.js and mapView.js
 let userCoordinates
 let currentUser
+let lastLocation
 const DEV_MODE = false
 const API_URL = {
     'PRO': 'https://park-easy-api.mybluemix.net/',
@@ -14,9 +15,9 @@ $(document).ready(() => {
     M.AutoInit()
 
     detectBrowserType()
-
+    lastLocation = Utility.getItemFromLocalStorage('')
     // Retrieve current user from local storage
-    currentUser = Utility.getItemFromLocalStorage('currentUser')
+    currentUser  = Utility.getItemFromLocalStorage('currentUser')
     if (currentUser) appendUserInfo()
 })
 
@@ -52,6 +53,6 @@ $(document).ajaxError((event, jqxhr, settings, thrownError) => {
     // Add a service unavailable control that covers the whole page
     // and add a button that allows the user to refresh the page
     // TODO: Extract this as a function and let other similar errors call this function
-    M.toast({ html: 'Service unavailable, please check your network status!', completeCallback: function(){if(confirm('Please Refresh the page')){location.reload();}}})
+  // FIX LATER  M.toast({ html: 'Service unavailable, please check your network status!', completeCallback: function(){if(confirm('Please Refresh the page')){location.reload();}}})
 })
   // TODO: Disable drag and select with jquery functions
