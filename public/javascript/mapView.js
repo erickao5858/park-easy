@@ -113,7 +113,7 @@ $(document).ready(() => {
  * The server should only return parking bays around the user
  */
 const refreshPOIs = () => {
-    $.get(DATA_URL, (data) => {
+    $.post(DATA_URL, (data) => {
         if (!data.success) {
             // Cannot retrieve locations
             M.toast({ html: 'Location server under maintenance, please come back later!' })
