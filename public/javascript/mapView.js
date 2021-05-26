@@ -1,60 +1,78 @@
 // TODO: Implement setting variance
+let map, POIs
 
-let map
-
+/*const HIDE = true, REFRESH = true*/
 $(document).ready(() => {
     // TODO: NOT IN MVP
     // Display a component that covers the whole page
     // and a button allows user to refresh the page
     navigator.geolocation.getCurrentPosition((position) => {
         userCoordinates = position.coords
+        // Mapbox API token
+        const accessToken = 'pk.eyJ1IjoiZXJpY2thbyIsImEiOiJja25qMzhldmgwYThwMm5tZjh2bjBsdmQxIn0.3z4PTxSU8z0A_ggSYH3FCQ'
+        map = new Mapbox(accessToken)
+        map.showMap()
+
+        map.loadCustomImage('../assets/pin.png', 'pin')
+        map.loadCustomImage('../assets/pin_favorite.png', 'pin-favourite')
+        // Center map to user location
+        // navigator.geolocation.getCurrentPosition((position) => map.setCenter([position.coords.longitude, position.coords.latitude]))
+
+        // Activate geolocate function
+        map.activateGeolocateControl()
+
+        // Implement function required
+        map.generateLinkHTML = (e) => {
+            title = e.features[0].properties.title
+            coordinates = e.features[0].geometry.coordinates
+            bays = e.features[0].properties.bays
+            id = e.features[0].properties.id
+
+            let html = ''
+            html += '<b>' + title + '</b>'
+            html += '<div>'
+            html += Utility.getDistance(userCoordinates.latitude, userCoordinates.longitude, coordinates[1], coordinates[0]) + '<br>'
+            html += bays + '<br>'
+            html += '<a href="https://www.google.com/maps/dir/?api=1&destination=' + coordinates[1] + ',' + coordinates[0] + '&travelmode=driving" target="_blank">Navi to here</a>'
+            // TODO: Change style
+            html += '<a href="#" style="float:right" id=' + id + ' onclick="updateFav(this)">Fav</a>'
+            html += '</div>'
+            return html
+        }
+        refreshPOIs()
+        /*
+        if (REFRESH) {
+            setInterval(() => {
+                refreshPOIs()
+            }, 60000)
+        }*/
     }, () => {
         M.toast({ html: 'Failed to get user location, please allow location access!' })
-        $('#map').remove()
     }, {
         enableHighAccuracy: true
     })
-    // Mapbox API token
-    const accessToken = 'pk.eyJ1IjoiZXJpY2thbyIsImEiOiJja25qMzhldmgwYThwMm5tZjh2bjBsdmQxIn0.3z4PTxSU8z0A_ggSYH3FCQ'
-    map = new Mapbox(accessToken)
-    map.showMap()
+})
 
-    // Center map to user location
-    // navigator.geolocation.getCurrentPosition((position) => map.setCenter([position.coords.longitude, position.coords.latitude]))
+const updateFav = (originate) => {
+    const id = $(originate).attr('id')
+    const POI = POIs.find(POI => POI.properties.id == id)
 
-    // Activate geolocate function
-    map.activateGeolocateControl()
+    let favIDs = Utility.getItemFromLocalStorage('favIDs')
+    if (!favIDs) favIDs = []
 
-    // Implement function required
-    map.generateLinkHTML = (e) => {
-        title = e.features[0].properties.title
-        coordinates = e.features[0].geometry.coordinates
-        bays = e.features[0].properties.bays
-
-        const wrapper = $('<div/>')
-        const header = $('<b/>').text(title)
-        wrapper.append(header)
-        const content = $('<div/>')
-        wrapper.append(content)
-        content.append(Utility.getDistance(userCoordinates.latitude, userCoordinates.longitude, coordinates[1], coordinates[0]))
-        content.append($('<br/>'))
-        content.append(bays)
-        content.append($('<br/>'))
-        const link = $('<a/>').text('Navi to here')
-        .attr('href', 'https://www.google.com/maps/dir/?api=1&destination='+coordinates[1] + ',' + coordinates[0] + '&travelmode=driving')
-        .attr('target','_blank')
-        content.append(link)
-        return wrapper.html()
+    const index = favIDs.indexOf(POI.properties.id)
+    if (index == -1) {
+        POI.properties.icon = 'pin-favourite'
+        favIDs.push(POI.properties.id)
+    }
+    else {
+        POI.properties.icon = 'pin'
+        favIDs.splice(index, 1)
     }
 
-    // Wait for map
-    let timer = setInterval(() => {
-        if (map.isCustomImageLoaded) {
-            clearInterval(timer)
-            refreshPOIs()
-        }
-    }, 100)
-})
+    Utility.setItemToLocalStorage('favIDs', favIDs)
+    map.updatePOIs(POIs)
+}
 
 /**
  * @summary RefreshPOIs in map
@@ -62,39 +80,38 @@ $(document).ready(() => {
  * The server should only return parking bays around the user
  */
 const refreshPOIs = () => {
-    $.get(DATA_URL, (data) => {
+    $.post(DATA_URL, { /*hideUnavailable: HIDE*/ }, (data) => {
         if (!data.success) {
             // Cannot retrieve locations
             M.toast({ html: 'Location server under maintenance, please come back later!' })
             return
         }
+        if (data.locations.lenth == 0) {
+            // TODO: Add notification - no available locations
+            return
+        }
+        $('.mapboxgl-popup-close-button').trigger('click')
         // Convert data into POIs
-        const POIs = createPOIs(data.locations)
+        createPOIs(data.locations)
 
-        // Remove existing POIs and append new POIs
-        map.removePOIs()
-        map.appendPOIs(POIs)
+        // Get favourite location IDs from local storage
+        let favIDs = Utility.getItemFromLocalStorage('favIDs')
+        if (favIDs) {
+            favIDs.forEach(id => {
+                const POI = POIs.find(POI => POI.properties.id == id)
+                if (POI) POI.properties.icon = 'pin-favourite'
+            })
+        }
+        map.updatePOIs(POIs)
     })
 }
 
 /**
  * @summary Convert location data into POI data
  * @param {JSON} locations location data
- * @returns POIs readable by Mapbox API
- * @example locations: [{
-    "bays": 10,
-    "baysAvailable": 10,
-    "coordinates": [145.109342, -37.848027],
-    "title": "Elgar Rd/Burwood Hwy"
-  }, {
-    "bays": 8,
-    "baysAvailable": 8,
-    "coordinates": [145.120227, -37.849891],
-    "title": "Station St/Burwood Hwy"
-  }]
  */
 const createPOIs = (locations) => {
-    let POIs = []
+    POIs = []
     locations.forEach(location => {
         let POI = {
             'type': 'Feature',
@@ -105,10 +122,11 @@ const createPOIs = (locations) => {
             'properties': {
                 'title': location.title,
                 'description': location.description,
-                'bays': location.baysAvailable + '/' + location.bays + ' spots'
+                'bays': location.baysAvailable + '/' + location.bays + ' spots',
+                'icon': 'pin',
+                'id': location.id
             }
         }
         POIs.push(POI)
     })
-    return POIs
 }
