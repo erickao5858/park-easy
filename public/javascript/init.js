@@ -11,6 +11,7 @@ const DATA_URL = 'https://1b662c15.us-south.apigw.appdomain.cloud/park-easy-data
 
 $(document).ready(() => {
     // Initialize materializecss components
+    appendSideNav()
     M.AutoInit()
 
     detectBrowserType()
@@ -52,6 +53,17 @@ $(document).ajaxError((event, jqxhr, settings, thrownError) => {
     // Add a service unavailable control that covers the whole page
     // and add a button that allows the user to refresh the page
     // TODO: Extract this as a function and let other similar errors call this function
-    M.toast({ html: 'Service unavailable, please check your network status!', completeCallback: function(){if(confirm('Please Refresh the page')){location.reload();}}})
+    M.toast({ html: 'Service unavailable, please check your network status!', completeCallback: function () { if (confirm('Please Refresh the page')) { location.reload(); } } })
 })
-  // TODO: Disable drag and select with jquery functions
+// TODO: Disable drag and select with jquery functions
+
+const appendSideNav = () => {
+    $('nav').after('<ul id="slide-out" class="sidenav"></ul>')
+    $('.sidenav').append('<li><a class="waves-effect" href="/login"><i class="material-icons">person</i>Sign in</a></li>')
+    $('.sidenav').append('<li><div class="divider"></div></li>')
+    $('.sidenav').append('<li><a class="waves-effect" href="/">Map view</a></li>')
+    $('.sidenav').append('<li><a class="waves-effect" href="/listView">List view</a></li>')
+    $('.sidenav').append(' <li><div class="divider"></div></li>')
+    $('.sidenav').append(' <li><a class="waves-effect" href="/settings">Settings</a></li>')
+    $('.sidenav').append('<li><a class="subheader">v0.5.0</a></li>')
+}
