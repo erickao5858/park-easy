@@ -6,14 +6,18 @@ $(document).ready(() => {
     // TODO: NOT IN MVP
     // Display a component that covers the whole page
     // and a button allows user to refresh the page
+    $("#mapLoader").show();
     navigator.geolocation.getCurrentPosition((position) => {
         userCoordinates = position.coords
     }, () => {
         M.toast({ html: 'Failed to get user location, please allow location access!' })
         $('#map').remove()
+        $("#mapLoader").show();
     }, {
+        
         enableHighAccuracy: true
     })
+    $("#mapLoader").hide();
     // Mapbox API token
     const accessToken = 'pk.eyJ1IjoiZXJpY2thbyIsImEiOiJja25qMzhldmgwYThwMm5tZjh2bjBsdmQxIn0.3z4PTxSU8z0A_ggSYH3FCQ'
     map = new Mapbox(accessToken)
@@ -55,14 +59,17 @@ $(document).ready(() => {
         }
     }, 100)
     $("#btnMapRefresh").on("click",function(){
+        $("#mapLoader").show();
         navigator.geolocation.getCurrentPosition((position) => {
             userCoordinates = position.coords
         }, () => {
             M.toast({ html: 'Failed to get user location, please allow location access!' })
             $('#map').remove()
+            $("#mapLoader").show();
         }, {
             enableHighAccuracy: true
         })
+        $("#mapLoader").hide();
         // Mapbox API token
         const accessToken = 'pk.eyJ1IjoiZXJpY2thbyIsImEiOiJja25qMzhldmgwYThwMm5tZjh2bjBsdmQxIn0.3z4PTxSU8z0A_ggSYH3FCQ'
         map = new Mapbox(accessToken)

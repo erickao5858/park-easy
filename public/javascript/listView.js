@@ -12,22 +12,26 @@ $(document).ready(() => {
     }, {
         enableHighAccuracy: true
     })
+    $("#listLoader").show();
     $.post(DATA_URL, (data) => {
         if (!data.success) {
             // Cannot retrieve locations
             M.toast({ html: 'Location server under maintenance, please come back later!' })
             return
         }
+        $("#listLoader").hide();
         showLocations(data.locations)
     })
     $("#btnListRefresh").on("click",function(){
         $('.collection').html('')
+        $("#listLoader").show();
         $.post(DATA_URL, (data) => {
             if (!data.success) {
                 // Cannot retrieve locations
                 M.toast({ html: 'Location server under maintenance, please come back later!' })
                 return
             }
+            $("#listLoader").hide();
             showLocations(data.locations)
         })
     });

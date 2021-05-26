@@ -14,3 +14,7 @@ html, body {
     margin-bottom: 0;
     z-index: 997;
 }
+#mapLoader{
+    margin: 45%;
+    display: none;
+}
