@@ -24,6 +24,10 @@ router.get('/register', (req, res) => {
     res.sendFile('register.html', { root: htmlLocation })
 })
 
+router.get('/feedback', (req, res) => {
+    res.sendFile('feedback.html', { root: htmlLocation })
+})
+
 router.get('/login', (req, res) => {
     res.sendFile('login.html', { root: htmlLocation })
 })
