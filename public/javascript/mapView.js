@@ -3,6 +3,7 @@
 let map
 
 $(document).ready(() => {
+    $('.brand-logo').text('Map')
     // TODO: NOT IN MVP
     // Display a component that covers the whole page
     // and a button allows user to refresh the page

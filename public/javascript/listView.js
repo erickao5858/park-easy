@@ -2,6 +2,7 @@
 // TODO: NOT IN MAP
 // add loading effect
 $(document).ready(() => {
+    $('.brand-logo').text('List')
     // TODO: NOT IN MVP
     // Display a button allows user to refresh the page
     navigator.geolocation.getCurrentPosition((position) => {

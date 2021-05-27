@@ -19,12 +19,13 @@ $(document).ready(() => {
     // Retrieve current user from local storage
     currentUser = Utility.getItemFromLocalStorage('currentUser')
     if (currentUser) appendUserInfo()
+
+    $('.fixed-action-btn').click(() => {
+        // Let the button triggers side navigator
+        $('.sidenav').sidenav('open')
+    })
 })
 
-$('.fixed-action-btn').click(() => {
-    // Let the button triggers side navigator
-    $('.sidenav').sidenav('open')
-})
 
 detectBrowserType = () => {
     var ua = navigator.userAgent
@@ -53,11 +54,12 @@ $(document).ajaxError((event, jqxhr, settings, thrownError) => {
     // Add a service unavailable control that covers the whole page
     // and add a button that allows the user to refresh the page
     // TODO: Extract this as a function and let other similar errors call this function
-    M.toast({ html: 'Service unavailable, please check your network status!', completeCallback: function () { if (confirm('Please Refresh the page')) { location.reload(); } } })
+    // M.toast({ html: 'Service unavailable, please check your network status!', completeCallback: function () { if (confirm('Please Refresh the page')) { location.reload(); } } })
 })
 // TODO: Disable drag and select with jquery functions
 
 const appendSideNav = () => {
+    $('body').prepend("<nav> <div class='nav-wrapper'><a href='#' class='brand-logo'>Park Easy</a></div></nav>")
     $('nav').after('<ul id="slide-out" class="sidenav"></ul>')
     $('.sidenav').append('<li><a class="waves-effect" href="/login"><i class="material-icons">person</i>Sign in</a></li>')
     $('.sidenav').append('<li><div class="divider"></div></li>')
@@ -66,4 +68,8 @@ const appendSideNav = () => {
     $('.sidenav').append(' <li><div class="divider"></div></li>')
     $('.sidenav').append(' <li><a class="waves-effect" href="/settings">Settings</a></li>')
     $('.sidenav').append('<li><a class="subheader">v0.5.0</a></li>')
+
+    $('.sidenav').after("<div class='fixed-action-btn'></div>")
+    $('.fixed-action-btn').append("<a href='#' class='btn-floating btn-large waves-effect waves-light blue'><i class='medium material-icons'>menu</i></a>")
+
 }
