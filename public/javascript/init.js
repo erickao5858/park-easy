@@ -52,6 +52,21 @@ $(document).ajaxError((event, jqxhr, settings, thrownError) => {
     // Add a service unavailable control that covers the whole page
     // and add a button that allows the user to refresh the page
     // TODO: Extract this as a function and let other similar errors call this function
-    M.toast({ html: 'Service unavailable, please check your network status!', completeCallback: function(){if(confirm('Please Refresh the page')){location.reload();}}})
+    M.toast({ html: 'Service unavailable, please check your network status!', completeCallback: function () { if (confirm('Please Refresh the page')) { location.reload(); } } })
 })
-  // TODO: Disable drag and select with jquery functions
+// TODO: Disable drag and select with jquery functions
+
+//
+
+  /*
+
+`<div id="modal2" class="modal">
+  <div class="modal-content">
+    <h4>Modal Header</h4>
+    <p>A bunch of text</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+  </div>
+</div>`
+*/

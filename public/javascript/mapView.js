@@ -9,7 +9,21 @@ $(document).ready(() => {
     navigator.geolocation.getCurrentPosition((position) => {
         userCoordinates = position.coords
     }, () => {
-        M.toast({ html: 'Failed to get user location, please allow location access!' })
+        M.toast({
+            html: 'Failed to get user location, please allow location access!',
+            completeCallback: function () {
+                $(document.html).after(`<div id="modal2" class="modal">
+                <div class="modal-content"><img /></div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Back</a>
+                </div>
+            </div>`)
+            $('#modal2').modal()
+            $('#modal2').modal('open')
+                //$('#modal2').modal('open')
+            }
+
+        })
         $('#map').remove()
     }, {
         enableHighAccuracy: true
@@ -41,8 +55,8 @@ $(document).ready(() => {
         content.append(bays)
         content.append($('<br/>'))
         const link = $('<a/>').text('Navi to here')
-        .attr('href', 'https://www.google.com/maps/dir/?api=1&destination='+coordinates[1] + ',' + coordinates[0] + '&travelmode=driving')
-        .attr('target','_blank')
+            .attr('href', 'https://www.google.com/maps/dir/?api=1&destination=' + coordinates[1] + ',' + coordinates[0] + '&travelmode=driving')
+            .attr('target', '_blank')
         content.append(link)
         return wrapper.html()
     }
