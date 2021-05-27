@@ -1,19 +1,27 @@
-# ParkEasy
+# Park Easy Web
 ## Description
-ParkEasy web is an application that helps people in finding available roadside parking bays.
+Park Easy Web is an application that helps people in finding available roadside parking bays.
+
+## How to start the server
+Local machine:
+1. Clone the repo
+2. Use command npm install to install dependencies
+3. Use command npm start to start the server
+
+IBM Cloud Foundry:
+1. Clone the repo
+
+Docker:
+1. Use command sudo docker run -p 80:3000 erickao5858/park-easy-web
+
 ## Updates
 
-#### 0.3.0
-- Implemented support to IBM Cloud Foundry continuous delivery
+#### 1.1.0
+- Sync settings
+- Login with google/facebook account
 
-#### 0.2.2
-- Updated github actions
-
-#### 0.2.1
-- Updated README.md 
-
-#### 0.2.0
-- Implemented continuous delivery with github actions
-
-#### 0.1.0
-- Created files from template
+#### 1.0.0
+- Basic user functions
+- Display nearby parking bays in map
+- Display nearby parking bays in list
+- Setting page
