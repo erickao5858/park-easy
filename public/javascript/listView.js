@@ -36,6 +36,10 @@ const refreshLocations = () => {
             M.toast({ html: 'Location server under maintenance, please come back later!' })
             return
         }
+        if (data.locations.length == 0) {
+            // TODO: Add notification - no available locations
+            return
+        }
         $('#listLoader').hide()
         showLocations(data.locations)
     })

@@ -49,7 +49,7 @@ $(document).ready(() => {
         }*/
     }, () => {
         M.toast({ html: 'Failed to get user location, please allow location access!' })
-    }, {    
+    }, {
         enableHighAccuracy: true
     })
 })
@@ -88,7 +88,7 @@ const refreshPOIs = () => {
             M.toast({ html: 'Location server under maintenance, please come back later!' })
             return
         }
-        if (data.locations.lenth == 0) {
+        if (data.locations.length == 0) {
             // TODO: Add notification - no available locations
             return
         }
