@@ -6,6 +6,7 @@
 $(document).ready(() => {
     // TODO: NOT IN MVP
     // Display a button allows user to refresh the page
+    $('#listLoader').show()
     navigator.geolocation.getCurrentPosition((position) => {
         userCoordinates = position.coords
         refreshLocations()
@@ -22,6 +23,12 @@ $(document).ready(() => {
     })
 })
 
+$('#btnListRefresh').on('click',function(){
+    $('.collection').html('')
+    $('#listLoader').show()
+    refreshLocations()
+}) 
+
 const refreshLocations = () => {
     $.post(DATA_URL, { /*hideunavailable: HIDE*/ }, (data) => {
         if (!data.success) {
@@ -29,6 +36,11 @@ const refreshLocations = () => {
             M.toast({ html: 'Location server under maintenance, please come back later!' })
             return
         }
+        if (data.locations.length == 0) {
+            // TODO: Add notification - no available locations
+            return
+        }
+        $('#listLoader').hide()
         showLocations(data.locations)
     })
 }

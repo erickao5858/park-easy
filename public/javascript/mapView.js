@@ -6,6 +6,7 @@ $(document).ready(() => {
     // TODO: NOT IN MVP
     // Display a component that covers the whole page
     // and a button allows user to refresh the page
+    $('#mapLoader').show()
     navigator.geolocation.getCurrentPosition((position) => {
         userCoordinates = position.coords
         // Mapbox API token
@@ -80,16 +81,20 @@ const updateFav = (originate) => {
  * The server should only return parking bays around the user
  */
 const refreshPOIs = () => {
+    $('#mapLoader').show()
     $.post(DATA_URL, { /*hideUnavailable: HIDE*/ }, (data) => {
         if (!data.success) {
             // Cannot retrieve locations
             M.toast({ html: 'Location server under maintenance, please come back later!' })
             return
         }
-        if (data.locations.lenth == 0) {
+        if (data.locations.length == 0) {
             // TODO: Add notification - no available locations
             return
         }
+        // Hide the loader
+        $('#mapLoader').hide()
+
         $('.mapboxgl-popup-close-button').trigger('click')
         // Convert data into POIs
         createPOIs(data.locations)
@@ -130,3 +135,7 @@ const createPOIs = (locations) => {
         POIs.push(POI)
     })
 }
+
+$('#btnMapRefresh').on('click',function(){
+    refreshPOIs()
+})

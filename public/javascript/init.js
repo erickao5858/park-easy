@@ -32,7 +32,7 @@ detectBrowserType = () => {
     console.log(ua)
     ua = ua.toLowerCase()
 
-    //Check User Agent string for "mobi" and if not route to Desktop page
+    //Check User Agent string for 'mobi' and if not route to Desktop page
     if (!ua.includes('mobi')) {
         alert('This website is incompitable with desktop environment, some functions might not work properly.')
         Utility.setItemToLocalStorage('browserCheck', true)
