@@ -17,3 +17,12 @@ html, body {
 .collection .collection-item.avatar .secondary-content {
     top: 26px;
 }
+
+.modal .modal-footer {
+    background-color: #e6e6e6;
+    display: block;
+}
+.modal-close {
+    border: 2px solid  #d6d6d6;
+    
+}

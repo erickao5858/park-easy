@@ -6,3 +6,12 @@ html, body {
 #map {
     height: 100%;
 }
+.modal .modal-footer {
+    background-color: #e6e6e6;
+    display: block;
+}
+
+.modal-close {
+    border: 2px solid  #d6d6d6;
+    
+}
