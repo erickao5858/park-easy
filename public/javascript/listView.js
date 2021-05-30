@@ -1,42 +1,59 @@
 // TODO: Implement setting variance
 // TODO: NOT IN MAP
 // add loading effect
+
+/*const HIDE = true, REFRESH = true*/
 $(document).ready(() => {
     $('.brand-logo').text('List')
     // TODO: NOT IN MVP
     // Display a button allows user to refresh the page
+    $('#listLoader').show()
     navigator.geolocation.getCurrentPosition((position) => {
         userCoordinates = position.coords
+        refreshLocations()
+        /*
+        if (REFRESH) {
+            setInterval(() => {
+                refreshLocations()
+            }, 1000)
+        }*/
     }, () => {
         M.toast({ html: 'Failed to get user location, please allow location access!' })
-        $('#map').remove()
     }, {
         enableHighAccuracy: true
     })
-    $.get(DATA_URL, (data) => {
+})
+
+$('#btnListRefresh').on('click',function(){
+    $('.collection').html('')
+    $('#listLoader').show()
+    refreshLocations()
+}) 
+
+const refreshLocations = () => {
+    $.post(DATA_URL, { /*hideunavailable: HIDE*/ }, (data) => {
         if (!data.success) {
             // Cannot retrieve locations
             M.toast({ html: 'Location server under maintenance, please come back later!' })
             return
         }
+        if (data.locations.length == 0) {
+            // TODO: Add notification - no available locations
+            return
+        }
+        $('#listLoader').hide()
         showLocations(data.locations)
     })
-})
+}
 
 const showLocations = (locations) => {
     // TODO: NOT IN MAP
     // add loading effect
-    // Wait for user location data
-    if (!userCoordinates) {
-        setTimeout(() => {
-            showLocations(locations)
-        }, 100)
-        return
-    }
+    $('.collection').html('')
     locations.forEach(location => {
         $('.collection').append($('#template-collection-item').html())
         let element = $('.collection').children().last()
-        element.find('img').click((obj)=>{
+        element.find('img').click((obj) => {
             $('.modal').find('img').attr('src', obj.target.currentSrc).css('width', '100%')
             $('.modal').modal('open')
         })

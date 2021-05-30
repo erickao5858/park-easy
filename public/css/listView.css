@@ -17,3 +17,19 @@ html, body {
 .collection .collection-item.avatar .secondary-content {
     top: 26px;
 }
+
+#btnListRefresh {
+    position: fixed;
+    right: 23px;
+    bottom: 85px;
+    padding-top: 0px;
+    margin-bottom: 0;
+    z-index: 997;
+}
+
+#listLoader {
+    z-index: 997;
+    position: absolute;
+    margin: 45%;
+    display: none;
+}

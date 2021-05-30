@@ -28,13 +28,16 @@ $(document).ready(() => {
 
 
 detectBrowserType = () => {
+    const browserCheck = Utility.getItemFromLocalStorage('browserCheck')
+    if (browserCheck) return
     var ua = navigator.userAgent
     console.log(ua)
     ua = ua.toLowerCase()
 
-    //Check User Agent string for "mobi" and if not route to Desktop page
+    //Check User Agent string for 'mobi' and if not route to Desktop page
     if (!ua.includes('mobi')) {
         alert('This website is incompitable with desktop environment, some functions might not work properly.')
+        Utility.setItemToLocalStorage('browserCheck', true)
     }
 }
 
@@ -54,7 +57,7 @@ $(document).ajaxError((event, jqxhr, settings, thrownError) => {
     // Add a service unavailable control that covers the whole page
     // and add a button that allows the user to refresh the page
     // TODO: Extract this as a function and let other similar errors call this function
-    // M.toast({ html: 'Service unavailable, please check your network status!', completeCallback: function () { if (confirm('Please Refresh the page')) { location.reload(); } } })
+    M.toast({ html: 'Service unavailable, please check your network status!', completeCallback: function () { if (confirm('Please Refresh the page')) { location.reload(); } } })
 })
 // TODO: Disable drag and select with jquery functions
 

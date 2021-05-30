@@ -6,3 +6,19 @@ html, body {
 #map {
     height: 100%;
 }
+
+#btnMapRefresh {
+    position: fixed;
+    right: 23px;
+    bottom: 85px;
+    padding-top: 0px;
+    margin-bottom: 0;
+    z-index: 997;
+}
+
+#mapLoader {
+    z-index: 997;
+    position: absolute;
+    margin: 45%;
+    display: none;
+}

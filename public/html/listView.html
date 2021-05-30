@@ -19,6 +19,10 @@
 </head>
 
 <body>
+    <!-- List Refresh Button -->
+    <div id='btnListRefresh'>
+        <a class='btn-floating btn-large waves-effect waves-light blue'><i class='material-icons'>refresh</i></a>
+    </div>
 
     <!-- Location list -->
     <ul class='collection'></ul>
@@ -46,10 +50,22 @@
 </template>
 
 <!-- Modal Structure -->
-<div id="modal1" class="modal">
-    <div class="modal-content"><img /></div>
-    <div class="modal-footer">
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Back</a>
+<div id='modal1' class='modal'>
+    <div class='modal-content'><img /></div>
+    <div class='modal-footer'>
+        <a href='#!' class='modal-close waves-effect waves-green btn-flat'>Back</a>
     </div>
 </div>
-          
+
+<!-- Preloader -->
+<div id='listLoader' class='preloader-wrapper big active'>
+    <div class='spinner-layer spinner-blue-only'>
+        <div class='circle-clipper left'>
+        <div class='circle'></div>
+        </div><div class='gap-patch'>
+        <div class='circle'></div>
+        </div><div class='circle-clipper right'>
+        <div class='circle'></div>
+        </div>
+    </div>
+</div>
