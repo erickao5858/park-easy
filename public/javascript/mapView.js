@@ -22,8 +22,8 @@ $(document).ready(() => {
                 <h6>iPhone users</h6>  
                 <a href="https://support.apple.com/en-au/HT203080">Click here</a>
                 </div>     
-                <div class="modal-footer">
-                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Back</a>
+                <div class="modal-footer" id="modalFooter">
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="modalClose">Back</a>
                 </div>
                 </div>`)
             $('#NoGPSModal').modal()

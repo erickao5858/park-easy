@@ -55,18 +55,3 @@ $(document).ajaxError((event, jqxhr, settings, thrownError) => {
   //  M.toast({ html: 'Service unavailable, please check your network status!', completeCallback: function () { if (confirm('Please Refresh the page')) { location.reload(); } } })
 })
 // TODO: Disable drag and select with jquery functions
-
-//
-
-  /*
-
-`<div id="modal2" class="modal">
-  <div class="modal-content">
-    <h4>Modal Header</h4>
-    <p>A bunch of text</p>
-  </div>
-  <div class="modal-footer">
-    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
-  </div>
-</div>`
-*/
