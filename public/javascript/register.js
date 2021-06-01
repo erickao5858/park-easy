@@ -1,4 +1,5 @@
 $(document).ready(() => {
+    $('.brand-logo').text('Register')
     // TODO: Redirect user in server-side
     if (currentUser) $(location).attr('href', '/')
     // Bind click event to register button

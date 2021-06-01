@@ -4,6 +4,7 @@
 
 /*const HIDE = true, REFRESH = true*/
 $(document).ready(() => {
+    $('.brand-logo').text('List')
     // TODO: NOT IN MVP
     // Display a button allows user to refresh the page
     $('#listLoader').show()
