@@ -2,25 +2,26 @@ $(document).ready(() => {
     // TODO: Redirect user in server-side
     if (currentUser) $(location).attr('href', '/')
     // Bind click event to register button
-    $('#btn-submit').click(register)
+    $('#btn-submit').click(submitFeedback)
 })
 
-const register = () => {
+const submitFeedback = () => {
     // Validate input fields
     if (!$('form')[0].reportValidity()) return
 
     // Get username and password
-    const username = $('#username').val()
-    const password = $('#password').val()
+    const name = $('#name').val()
+    const email = $('#email').val()
+    const feedback = $('#feedback').val()
 
-    $.post(url + 'register', { username: username, password: password }, (data) => {
+    $.post(url + 'feedback', { name: name, email: email,feedback: feedback }, (data) => {
         if (!data.success) {
-            // Register failed
+            // Feedbaack failed
             M.toast({ html: 'Action failed: ' + data.err.message })
             return
         }
         $('form').trigger('reset')
-        M.toast({ html: 'Register successfully!' })
+        M.toast({ html: 'Feedback submitted succesfully!' })
     })
 }
 $('#feedback').val('');
