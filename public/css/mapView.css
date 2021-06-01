@@ -7,6 +7,14 @@ html, body {
     height: 100%;
 }
 
+#modalFooter {
+    background-color: #e6e6e6;
+    display: block;
+}
+#modalClose {
+    border: 2px solid  #d6d6d6;
+}
+
 #btnMapRefresh {
     position: fixed;
     right: 23px;

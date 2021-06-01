@@ -18,6 +18,15 @@ html, body {
     top: 26px;
 }
 
+#modalFooter {
+    background-color: #e6e6e6;
+    display: block;
+}
+
+#modalClose {
+    border: 2px solid  #d6d6d6;
+}
+
 #btnListRefresh {
     position: fixed;
     right: 23px;

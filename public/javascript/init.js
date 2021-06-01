@@ -1,4 +1,3 @@
-// TODO: Migrate to listView.js and mapView.js
 let userCoordinates
 let currentUser
 const DEV_MODE = false
@@ -10,8 +9,8 @@ const url = DEV_MODE ? API_URL['DEV'] : API_URL['PRO']
 const DATA_URL = 'https://1b662c15.us-south.apigw.appdomain.cloud/park-easy-data/location'
 
 $(document).ready(() => {
-    // Initialize materializecss components
     appendSideNav()
+    // Initialize materializecss components
     M.AutoInit()
 
     detectBrowserType()
@@ -27,7 +26,7 @@ $(document).ready(() => {
 })
 
 
-detectBrowserType = () => {
+const detectBrowserType = () => {
     const browserCheck = Utility.getItemFromLocalStorage('browserCheck')
     if (browserCheck) return
     var ua = navigator.userAgent
@@ -41,8 +40,7 @@ detectBrowserType = () => {
     }
 }
 
-appendUserInfo = () => {
-    // TODO: Log in with passport
+const appendUserInfo = () => {
     const userInfoElement = $('#slide-out').children().first()
     userInfoElement.click(() => {
         // Logout user
@@ -53,13 +51,8 @@ appendUserInfo = () => {
 }
 
 $(document).ajaxError((event, jqxhr, settings, thrownError) => {
-    // TODO: NOT IN MVP
-    // Add a service unavailable control that covers the whole page
-    // and add a button that allows the user to refresh the page
-    // TODO: Extract this as a function and let other similar errors call this function
     M.toast({ html: 'Service unavailable, please check your network status!', completeCallback: function () { if (confirm('Please Refresh the page')) { location.reload(); } } })
 })
-// TODO: Disable drag and select with jquery functions
 
 const appendSideNav = () => {
     $('body').prepend("<nav> <div class='nav-wrapper'><a href='#' class='brand-logo'>Park Easy</a></div></nav>")
@@ -71,8 +64,6 @@ const appendSideNav = () => {
     $('.sidenav').append(' <li><div class="divider"></div></li>')
     $('.sidenav').append(' <li><a class="waves-effect" href="/settings">Settings</a></li>')
     $('.sidenav').append('<li><a class="subheader">v0.5.0</a></li>')
-
     $('.sidenav').after("<div class='fixed-action-btn'></div>")
     $('.fixed-action-btn').append("<a href='#' class='btn-floating btn-large waves-effect waves-light blue'><i class='medium material-icons'>menu</i></a>")
-
 }

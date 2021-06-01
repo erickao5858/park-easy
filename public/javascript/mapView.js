@@ -4,9 +4,6 @@ let map, POIs
 /*const HIDE = true, REFRESH = true*/
 $(document).ready(() => {
     $('.brand-logo').text('Map')
-    // TODO: NOT IN MVP
-    // Display a component that covers the whole page
-    // and a button allows user to refresh the page
     $('#mapLoader').show()
     navigator.geolocation.getCurrentPosition((position) => {
         userCoordinates = position.coords
@@ -49,7 +46,27 @@ $(document).ready(() => {
             }, 60000)
         }*/
     }, () => {
-        M.toast({ html: 'Failed to get user location, please allow location access!' })
+        M.toast({
+            html: 'Failed to get user location, please allow location access!',
+            completeCallback: function () {
+                $(document.body).after(
+                `<div id="NoGPSModal" class="modal">              
+                <div class="modal-content">
+                <h5>Location is unavailable</h4>
+                <p>We're unable to access your location. If this was unintended you can find help in the links below</p>
+                <h6>Android users</h6>  
+                <a href="https://support.google.com/accounts/answer/3467281?hl=en">Click here</a>  
+                <h6>iPhone users</h6>  
+                <a href="https://support.apple.com/en-au/HT203080">Click here</a>
+                </div>     
+                <div class="modal-footer" id="modalFooter">
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="modalClose">Back</a>
+                </div>
+                </div>`)
+            $('#NoGPSModal').modal()
+            $('#NoGPSModal').modal('open')
+            }
+        })
     }, {
         enableHighAccuracy: true
     })
