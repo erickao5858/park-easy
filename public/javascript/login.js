@@ -1,4 +1,5 @@
 $(document).ready(() => {
+    $('.brand-logo').text('Login')
     // Bind click event to login button
     $('form').attr('action', url + 'auth/local')
     $('.btn-login-google').attr('href', url + 'auth/google')
