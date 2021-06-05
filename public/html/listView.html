@@ -19,23 +19,9 @@
 </head>
 
 <body>
-    <nav> 
-        <div class='nav-wrapper'>
-            <a href='#' class='brand-logo'>List</a>
-        </div>
-    </nav>
-    <ul id='slide-out' class='sidenav'>
-        <li><a class='waves-effect' href='/login'><i class='material-icons'>person</i>Sign in</a></li>
-        <li><div class='divider'></div></li>
-        <li><a class='waves-effect' href='/'>Map view</a></li>
-        <li><a class='waves-effect' href='/listView'>List view</a></li>
-        <li><div class='divider'></div></li>
-        <li><a class='waves-effect' href='/settings'>Settings</a></li>
-        <li><a class='waves-effect' href='/feedback'>Feedback</a></li>
-        <li><a class='subheader'>v0.5.0</a></li>
-    </ul>
-    <div class='fixed-action-btn'>
-        <a href='#' class='btn-floating btn-large waves-effect waves-light blue'><i class='medium material-icons'>menu</i></a>
+    <!-- List Refresh Button -->
+    <div id='btnListRefresh'>
+        <a class='btn-floating btn-large waves-effect waves-light blue'><i class='material-icons'>refresh</i></a>
     </div>
 
     <!-- Location list -->
@@ -64,10 +50,22 @@
 </template>
 
 <!-- Modal Structure -->
-<div id="modal1" class="modal">
-    <div class="modal-content"><img /></div>
-    <div class="modal-footer">
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Back</a>
+<div id='modal1' class='modal'>
+    <div class='modal-content'><img /></div>
+    <div class='modal-footer'>
+        <a href='#!' class='modal-close waves-effect waves-green btn-flat'>Back</a>
     </div>
 </div>
-          
+
+<!-- Preloader -->
+<div id='listLoader' class='preloader-wrapper big active'>
+    <div class='spinner-layer spinner-blue-only'>
+        <div class='circle-clipper left'>
+        <div class='circle'></div>
+        </div><div class='gap-patch'>
+        <div class='circle'></div>
+        </div><div class='circle-clipper right'>
+        <div class='circle'></div>
+        </div>
+    </div>
+</div>
