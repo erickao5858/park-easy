@@ -1,6 +1,5 @@
 let userCoordinates
 let currentUser
-
 const DEV_MODE = false
 const API_URL = {
     'PRO': 'https://park-easy-api.mybluemix.net/',
@@ -10,17 +9,19 @@ const url = DEV_MODE ? API_URL['DEV'] : API_URL['PRO']
 const DATA_URL = 'https://1b662c15.us-south.apigw.appdomain.cloud/park-easy-data/location'
 
 if (location.protocol != 'https:') {
-    location.protocol='https:'
+    location.protocol = 'https:'
 }
 
 $(document).ready(() => {
     appendSideNav()
+
     // Initialize materializecss components
     M.AutoInit()
 
     detectBrowserType()
+
     // Retrieve current user from local storage
-    currentUser  = Utility.getItemFromLocalStorage('currentUser')
+    currentUser = Utility.getItemFromLocalStorage('currentUser')
     if (currentUser) appendUserInfo()
 
     $('.fixed-action-btn').click(() => {
@@ -55,7 +56,7 @@ const appendUserInfo = () => {
 }
 
 $(document).ajaxError((event, jqxhr, settings, thrownError) => {
-    M.toast({ html: 'Service unavailable, please check your network status!', completeCallback: function () { if (confirm('Please Refresh the page')) { location.reload(); } } })
+    M.toast({ html: 'Service unavailable, please check your network status!', completeCallback: () => { if (confirm('Please Refresh the page')) { location.reload() } } })
 })
 
 const appendSideNav = () => {
