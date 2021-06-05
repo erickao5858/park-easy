@@ -1,6 +1,5 @@
 $(document).ready(() => {
-    // TODO: Redirect user in server-side
-    if (currentUser) $(location).attr('href', '/')
+    $('.brand-logo').text('Feedback')
     // Bind click event to register button
     $('#btn-submit').click(submitFeedback)
 })
@@ -14,7 +13,7 @@ const submitFeedback = () => {
     const email = $('#email').val()
     const feedback = $('#feedback').val()
 
-    $.post(url + 'feedback', { name: name, email: email,feedback: feedback }, (data) => {
+    $.post(url + 'feedback', { name: name, email: email, feedback: feedback }, (data) => {
         if (!data.success) {
             // Feedbaack failed
             M.toast({ html: 'Action failed: ' + data.err.message })
@@ -24,5 +23,5 @@ const submitFeedback = () => {
         M.toast({ html: 'Feedback submitted succesfully!' })
     })
 }
-$('#feedback').val('');
-M.textareaAutoResize($('#feedback'));
+$('#feedback').val('')
+M.textareaAutoResize($('#feedback'))
