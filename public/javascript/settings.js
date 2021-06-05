@@ -1,6 +1,7 @@
 let userSettings
 let settingItems
 $(document).ready(() => {
+    $('.brand-logo').text('Settings')
     $.get(url + 'settingItem', (data) => {
         if (!data.success) {
             // Cannot retrieve setting items

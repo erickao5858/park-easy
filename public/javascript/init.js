@@ -1,4 +1,3 @@
-// TODO: Migrate to listView.js and mapView.js
 let userCoordinates
 let currentUser
 const DEV_MODE = false
@@ -9,40 +8,43 @@ const API_URL = {
 const url = DEV_MODE ? API_URL['DEV'] : API_URL['PRO']
 const DATA_URL = 'https://1b662c15.us-south.apigw.appdomain.cloud/park-easy-data/location'
 
+if (location.protocol != 'https:') {
+    location.protocol='https:'
+}
+
 $(document).ready(() => {
+    appendSideNav()
     // Initialize materializecss components
     M.AutoInit()
-
-
-    if (location.protocol != 'https:') {
-        location.protocol='https:'
-    }
 
     detectBrowserType()
 
     // Retrieve current user from local storage
     currentUser = Utility.getItemFromLocalStorage('currentUser')
     if (currentUser) appendUserInfo()
+
+    $('.fixed-action-btn').click(() => {
+        // Let the button triggers side navigator
+        $('.sidenav').sidenav('open')
+    })
 })
 
-$('.fixed-action-btn').click(() => {
-    // Let the button triggers side navigator
-    $('.sidenav').sidenav('open')
-})
 
-detectBrowserType = () => {
+const detectBrowserType = () => {
+    const browserCheck = Utility.getItemFromLocalStorage('browserCheck')
+    if (browserCheck) return
     var ua = navigator.userAgent
     console.log(ua)
     ua = ua.toLowerCase()
 
-    //Check User Agent string for "mobi" and if not route to Desktop page
+    //Check User Agent string for 'mobi' and if not route to Desktop page
     if (!ua.includes('mobi')) {
         alert('This website is incompitable with desktop environment, some functions might not work properly.')
+        Utility.setItemToLocalStorage('browserCheck', true)
     }
 }
 
-appendUserInfo = () => {
-    // TODO: Log in with passport
+const appendUserInfo = () => {
     const userInfoElement = $('#slide-out').children().first()
     userInfoElement.click(() => {
         // Logout user
@@ -53,10 +55,19 @@ appendUserInfo = () => {
 }
 
 $(document).ajaxError((event, jqxhr, settings, thrownError) => {
-    // TODO: NOT IN MVP
-    // Add a service unavailable control that covers the whole page
-    // and add a button that allows the user to refresh the page
-    // TODO: Extract this as a function and let other similar errors call this function
     M.toast({ html: 'Service unavailable, please check your network status!', completeCallback: function () { if (confirm('Please Refresh the page')) { location.reload(); } } })
 })
-  // TODO: Disable drag and select with jquery functions
+
+const appendSideNav = () => {
+    $('body').prepend("<nav> <div class='nav-wrapper'><a href='#' class='brand-logo'>Park Easy</a></div></nav>")
+    $('nav').after('<ul id="slide-out" class="sidenav"></ul>')
+    $('.sidenav').append('<li><a class="waves-effect" href="/login"><i class="material-icons">person</i>Sign in</a></li>')
+    $('.sidenav').append('<li><div class="divider"></div></li>')
+    $('.sidenav').append('<li><a class="waves-effect" href="/">Map view</a></li>')
+    $('.sidenav').append('<li><a class="waves-effect" href="/listView">List view</a></li>')
+    $('.sidenav').append(' <li><div class="divider"></div></li>')
+    $('.sidenav').append(' <li><a class="waves-effect" href="/settings">Settings</a></li>')
+    $('.sidenav').append('<li><a class="subheader">v0.5.0</a></li>')
+    $('.sidenav').after("<div class='fixed-action-btn'></div>")
+    $('.fixed-action-btn').append("<a href='#' class='btn-floating btn-large waves-effect waves-light blue'><i class='medium material-icons'>menu</i></a>")
+}
