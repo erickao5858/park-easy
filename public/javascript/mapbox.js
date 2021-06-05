@@ -105,7 +105,7 @@ class Mapbox {
      */
     updatePOIs = (POIs) => {
         // If source not exists, create one
-        if(!this.map.getSource('points')){
+        if (!this.map.getSource('points')) {
             this.appendPOIs(POIs)
             return
         }

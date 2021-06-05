@@ -9,11 +9,12 @@ const url = DEV_MODE ? API_URL['DEV'] : API_URL['PRO']
 const DATA_URL = 'https://1b662c15.us-south.apigw.appdomain.cloud/park-easy-data/location'
 
 if (location.protocol != 'https:') {
-    location.protocol='https:'
+    location.protocol = 'https:'
 }
 
 $(document).ready(() => {
     appendSideNav()
+
     // Initialize materializecss components
     M.AutoInit()
 
@@ -55,7 +56,7 @@ const appendUserInfo = () => {
 }
 
 $(document).ajaxError((event, jqxhr, settings, thrownError) => {
-    M.toast({ html: 'Service unavailable, please check your network status!', completeCallback: function () { if (confirm('Please Refresh the page')) { location.reload(); } } })
+    M.toast({ html: 'Service unavailable, please check your network status!', completeCallback: () => { if (confirm('Please Refresh the page')) { location.reload() } } })
 })
 
 const appendSideNav = () => {
@@ -67,6 +68,7 @@ const appendSideNav = () => {
     $('.sidenav').append('<li><a class="waves-effect" href="/listView">List view</a></li>')
     $('.sidenav').append(' <li><div class="divider"></div></li>')
     $('.sidenav').append(' <li><a class="waves-effect" href="/settings">Settings</a></li>')
+    $('.sidenav').append(' <li><a class="waves-effect" href="/feedback">Feedback</a></li>')
     $('.sidenav').append('<li><a class="subheader">v0.5.0</a></li>')
     $('.sidenav').after("<div class='fixed-action-btn'></div>")
     $('.fixed-action-btn').append("<a href='#' class='btn-floating btn-large waves-effect waves-light blue'><i class='medium material-icons'>menu</i></a>")
