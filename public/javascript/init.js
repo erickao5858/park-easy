@@ -8,6 +8,10 @@ const API_URL = {
 const url = DEV_MODE ? API_URL['DEV'] : API_URL['PRO']
 const DATA_URL = 'https://1b662c15.us-south.apigw.appdomain.cloud/park-easy-data/location'
 
+if (location.protocol != 'https:') {
+    location.protocol='https:'
+}
+
 $(document).ready(() => {
     appendSideNav()
     // Initialize materializecss components
