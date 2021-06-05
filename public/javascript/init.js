@@ -68,6 +68,7 @@ const appendSideNav = () => {
     $('.sidenav').append('<li><a class="waves-effect" href="/listView">List view</a></li>')
     $('.sidenav').append(' <li><div class="divider"></div></li>')
     $('.sidenav').append(' <li><a class="waves-effect" href="/settings">Settings</a></li>')
+    $('.sidenav').append(' <li><a class="waves-effect" href="/feedback">Feedback</a></li>')
     $('.sidenav').append('<li><a class="subheader">v0.5.0</a></li>')
     $('.sidenav').after("<div class='fixed-action-btn'></div>")
     $('.fixed-action-btn').append("<a href='#' class='btn-floating btn-large waves-effect waves-light blue'><i class='medium material-icons'>menu</i></a>")
