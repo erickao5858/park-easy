@@ -1,10 +1,15 @@
 // TODO: Implement setting variance
 let map, POIs
 
+let mapMode = true
+
 /*const HIDE = true, REFRESH = true*/
 $(document).ready(() => {
-    $('.brand-logo').text('Map')
-    $('#mapLoader').show()
+    $('.brand-logo').text('Locations')
+    appendBtns()
+
+    // Show the preloader
+    $('.preloader').show()
     navigator.geolocation.getCurrentPosition((position) => {
         userCoordinates = position.coords
         // Mapbox API token
@@ -34,11 +39,11 @@ $(document).ready(() => {
             html += bays + '<br>'
             html += '<a href="https://www.google.com/maps/dir/?api=1&destination=' + coordinates[1] + ',' + coordinates[0] + '&travelmode=driving" target="_blank"><i class="fas fa-route"></i></a>'
             iconClass = e.features[0].properties.icon == 'pin' ? 'far fa-heart' : 'fas fa-heart'
-            html += '<a href="#" style="float:right" targetID=' + id + ' onclick="updateFav(this)"><i class="' + iconClass + '"></i></a>'
+            html += '<a href="#" style="float:right"><i class="' + iconClass + '" targetID=' + id + ' onclick="updateFav(this)"></i></a>'
             html += '</div>'
             return html
         }
-        refreshPOIs()
+        refreshLocations()
         /*
         if (REFRESH) {
             setInterval(() => {
@@ -72,37 +77,14 @@ $(document).ready(() => {
     })
 })
 
-const updateFav = (originate) => {
-    const id = $(originate).attr('targetID')
-    const POI = POIs.find(POI => POI.properties.id == id)
-
-    let favIDs = Utility.getItemFromLocalStorage('favIDs')
-    if (!favIDs) favIDs = []
-
-    const index = favIDs.indexOf(POI.properties.id)
-    if (index == -1) {
-        POI.properties.icon = 'pin-favourite'
-        favIDs.push(POI.properties.id)
-    }
-    else {
-        POI.properties.icon = 'pin'
-        favIDs.splice(index, 1)
-    }
-    
-    // Change icon inside poped window
-    $('.fa-heart').attr('class', $('.fa-heart').attr('class') == 'fas fa-heart' ? 'far fa-heart' : 'fas fa-heart')
-
-    Utility.setItemToLocalStorage('favIDs', favIDs)
-    map.updatePOIs(POIs)
-}
-
 /**
- * @summary RefreshPOIs in map
+ * @summary Refresh locations
  * @todo Request parameter should includes current position
  * The server should only return parking bays around the user
  */
-const refreshPOIs = () => {
-    $('#mapLoader').show()
+const refreshLocations = () => {
+    $('.mapboxgl-popup-close-button').trigger('click')
+    $('.preloader').show()
     $.post(DATA_URL, { /*hideUnavailable: HIDE*/ }, (data) => {
         if (!data.success) {
             // Cannot retrieve locations
@@ -113,10 +95,11 @@ const refreshPOIs = () => {
             // TODO: Add notification - no available locations
             return
         }
-        // Hide the loader
-        $('#mapLoader').hide()
+        // Hide the preloader
+        $('.preloader').hide()
 
-        $('.mapboxgl-popup-close-button').trigger('click')
+        const locations = data.locations
+
         // Convert data into POIs
         createPOIs(data.locations)
 
@@ -126,9 +109,12 @@ const refreshPOIs = () => {
             favIDs.forEach(id => {
                 const POI = POIs.find(POI => POI.properties.id == id)
                 if (POI) POI.properties.icon = 'pin-favourite'
+                const location = locations.find(location => location.id == id)
+                if (location) location.isFavourite = true
             })
         }
         map.updatePOIs(POIs)
+        showLocations(locations)
     })
 }
 
@@ -157,6 +143,79 @@ const createPOIs = (locations) => {
     })
 }
 
-$('#btnMapRefresh').on('click', function () {
-    refreshPOIs()
-})
+const appendBtns = () => {
+    const btnRefresh = $('<div/>')
+    btnRefresh.attr('id', 'btnRefresh')
+    $('#btnMenu').after(btnRefresh)
+    btnRefresh.append('<a class="btn-floating btn-large waves-effect waves-light blue"><i class="fas fa-redo"></i></a>')
+    btnRefresh.on('click', function () {
+        refreshLocations()
+    })
+
+    const btnSwitch = $('<div/>')
+    btnSwitch.attr('id', 'btnSwitch')
+    $('#btnRefresh').after(btnSwitch)
+    btnSwitch.append('<a class="btn-floating btn-large waves-effect waves-light green"><i class="fas fa-list-ul"></i></a>')
+    btnSwitch.on('click', function () {
+        if (mapMode) {
+            $('.mapboxgl-popup-close-button').trigger('click')
+            $('#map').hide()
+            $('.collection').show()
+            $('#btnSwitch').find('i').attr('class', 'fas fa-map-marked-alt')
+            mapMode = false
+        }
+        else {
+            $('#map').show()
+            $('.collection').hide()
+            $('#btnSwitch').find('i').attr('class', 'fas fa-list-ul')
+            mapMode = true
+        }
+    })
+}
+
+const showLocations = (locations) => {
+    $('.collection').html('')
+    locations.forEach(location => {
+        $('.collection').append($('#template-collection-item').html())
+        let element = $('.collection').children().last()
+        element.find('img').click((obj) => {
+            $('.modal').find('img').attr('src', obj.target.currentSrc).css('width', '100%')
+            $('.modal').modal('open')
+        })
+        element.find('span').html(location.title)
+        const favBtn = $('<i/>')
+        favBtn.attr('class', location.isFavourite == true ? 'fas fa-heart' : 'far fa-heart')
+        favBtn.attr('targetID', location.id)
+        favBtn.on('click', (event) => { updateFav(event.target) })
+        element.find('span').append(favBtn)
+        element.find('p').html(
+            location.baysAvailable + '/' + location.bays + ' spots' +
+            '<br>' +
+            Utility.getDistance(userCoordinates.latitude, userCoordinates.longitude, location.coordinates[1], location.coordinates[0])
+        )
+        element.find('a').attr('href', 'https://www.google.com/maps/dir/?api=1&destination=' + location.coordinates[1] + ',' + location.coordinates[0] + '&travelmode=driving')
+    })
+}
+
+const updateFav = (originate) => {
+    const id = $(originate).attr('targetID')
+    const POI = POIs.find(POI => POI.properties.id == id)
+
+    let favIDs = Utility.getItemFromLocalStorage('favIDs')
+    if (!favIDs) favIDs = []
+
+    const index = favIDs.indexOf(id)
+    if (index == -1) {
+        POI.properties.icon = 'pin-favourite'
+        $('.fa-heart[targetID=' + id + ']').attr('class', 'fas fa-heart')
+        favIDs.push(id)
+    }
+    else {
+        POI.properties.icon = 'pin'
+        $('.fa-heart[targetID=' + id + ']').attr('class', 'far fa-heart')
+        favIDs.splice(index, 1)
+    }
+
+    Utility.setItemToLocalStorage('favIDs', favIDs)
+    map.updatePOIs(POIs)
+}

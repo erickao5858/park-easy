@@ -1,0 +1,90 @@
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+#map {
+    height: 100%;
+}
+
+.collection {
+    display: none;
+    margin: 0;
+    overflow-y: scroll;
+}
+
+.collection-item.avatar {
+    padding-bottom: 0;
+}
+
+.collection-item.avatar img {
+    margin-top: 8px;
+}
+
+.collection .collection-item.avatar .secondary-content {
+    top: 26px;
+    margin-top:4%;
+    margin-right:2%;
+}
+
+.collection .fa-heart {
+    color: #ee6e73;
+    float: right;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+.collection .fa-route {
+    font-size: 1.5em;
+}
+
+.mapboxgl-popup-content .fa-route{
+    font-size:1.5em;
+}
+
+.mapboxgl-popup-content .fa-heart{
+    font-size:1.5em;
+}
+
+.preloader {
+    z-index: 997;
+    position: absolute;
+    margin: 45%;
+    display: none;
+}
+
+#btnMenu {
+    position: fixed;
+    right: 23px;
+    bottom: 23px;
+    padding-top: 0px;
+    margin-bottom: 0;
+    z-index: 997;
+}
+
+#btnRefresh {
+    position: fixed;
+    right: 23px;
+    bottom: 85px;
+    padding-top: 0px;
+    margin-bottom: 0;
+    z-index: 997;
+}
+
+#btnSwitch {
+    position: fixed;
+    right: 85px;
+    bottom: 23px;
+    padding-top: 0px;
+    margin-bottom: 0;
+    z-index: 997;
+}
+
+#modalFooter {
+    background-color: #e6e6e6;
+    display: block;
+}
+
+#modalClose {
+    border: 2px solid #d6d6d6;
+}

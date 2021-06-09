@@ -5,11 +5,7 @@ const router = express.Router()
 const htmlLocation = './public/html'
 
 router.get('/', (req, res) => {
-    res.sendFile('mapView.html', { root: htmlLocation })
-})
-
-router.get('/listView', (req, res) => {
-    res.sendFile('listView.html', { root: htmlLocation })
+    res.sendFile('locations.html', { root: htmlLocation })
 })
 
 router.get('/settings', (req, res) => {
