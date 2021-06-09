@@ -2,68 +2,71 @@
 <html lang='en'>
 
 <head>
-    <meta charset='UTF-8' />
-    <title>Park Easy</title>
+  <meta charset='UTF-8' />
+  <title>Park Easy</title>
 
-    <!-- Compiled and minified MaterializeCSS -->
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css'>
-    <!-- Google Icon -->
-    <link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet'>
-    <!-- Mapbox API-->
-    <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet'/>
-    <!-- Park Easy Logo -->
-    <link rel='icon' href='https://media.geeksforgeeks.org/wp-content/cdn-uploads/gfg_200X200.png' type='image/icon type'>
-    <!-- Font Awesome Icon -->
-    <script src="https://kit.fontawesome.com/5f54e05fec.js" crossorigin="anonymous"></script>
-    
-    <link href='../css/locations.css' rel='stylesheet' />
-    
-    <!--Let browser know website is optimized for mobile -->
-    <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=no'/>
+  <!-- Compiled and minified MaterializeCSS -->
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css'>
+  <!-- Google Icon -->
+  <link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet'>
+  <!-- Mapbox API-->
+  <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
+  <!-- Park Easy Logo -->
+  <link rel='icon' href='https://media.geeksforgeeks.org/wp-content/cdn-uploads/gfg_200X200.png' type='image/icon type'>
+  <!-- Font Awesome Icon -->
+  <script src='https://kit.fontawesome.com/5f54e05fec.js' crossorigin='anonymous'></script>
+
+  <link href='../css/locations.css' rel='stylesheet' />
+
+  <!--Let browser know website is optimized for mobile -->
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=no' />
 </head>
 
 <body>
-    <!-- Preloader -->
-    <div class='preloader preloader-wrapper big active'>
-      <div class='spinner-layer spinner-blue-only'>
-          <div class='circle-clipper left'>
-          <div class='circle'></div>
-          </div><div class='gap-patch'>
-          <div class='circle'></div>
-          </div><div class='circle-clipper right'>
-          <div class='circle'></div>
-          </div>
+  <!-- Preloader -->
+  <div class='preloader preloader-wrapper big active'>
+    <div class='spinner-layer spinner-blue-only'>
+      <div class='circle-clipper left'>
+        <div class='circle'></div>
+      </div>
+      <div class='gap-patch'>
+        <div class='circle'></div>
+      </div>
+      <div class='circle-clipper right'>
+        <div class='circle'></div>
       </div>
     </div>
+  </div>
 
-    <!-- Map -->
-    <div id='map'></div>
+  <!-- Map -->
+  <div id='map'></div>
 
-    <!-- List -->
-    <ul class='collection'></ul>
+  <!-- List -->
+  <ul class='collection'></ul>
 
-    <!-- jQuery -->
-    <script src='https://code.jquery.com/jquery-3.6.0.min.js' integrity='sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=' crossorigin='anonymous'></script>
-    <!-- Compiled and minified JavaScript -->
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js'></script>
-    <!-- Mapbox API-->
-    <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
-    <!-- Utilities -->
-    <script type='text/javascript' src='../javascript/utility.js'></script>
+  <!-- jQuery -->
+  <script src='https://code.jquery.com/jquery-3.6.0.min.js'
+    integrity='sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=' crossorigin='anonymous'></script>
+  <!-- Compiled and minified JavaScript -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js'></script>
+  <!-- Mapbox API-->
+  <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
+  <!-- Utilities -->
+  <script type='text/javascript' src='../javascript/utility.js'></script>
 
-    <script type='text/javascript' src='../javascript/init.js'></script>
-    <script type='text/javascript' src='../javascript/mapbox.js'></script>
-    <script type='text/javascript' src='../javascript/locations.js'></script>
+  <script type='text/javascript' src='../javascript/init.js'></script>
+  <script type='text/javascript' src='../javascript/mapbox.js'></script>
+  <script type='text/javascript' src='../javascript/locations.js'></script>
 </body>
 
 </html>
 
 <template id='template-collection-item'>
   <li class='collection-item avatar'>
-      <img src='../assets/sample_thumbnail.png' alt='thumbnail' class='circle'>
-      <span class='title'></span>
-      <p></p>
-      <a class='secondary-content' target='_blank'><i class='fas fa-route fa-2x'></i></a>
+    <img src='../assets/sample_thumbnail.png' alt='thumbnail' class='circle'>
+    <span class='title'></span>
+    <p></p>
+    <a class='secondary-content' target='_blank'><i class='fas fa-route fa-2x'></i></a>
   </li>
 </template>
 
@@ -71,6 +74,20 @@
 <div id='modal1' class='modal'>
   <div class='modal-content'><img /></div>
   <div class='modal-footer'>
-      <a href='#!' class='modal-close waves-effect waves-green btn-flat'>Back</a>
+    <a href='#!' class='modal-close waves-effect waves-green btn-flat'>Back</a>
+  </div>
+</div>
+
+<div id='NoGPSModal' class='modal'>
+  <div class='modal-content'>
+    <h5>Location is unavailable</h4>
+      <p>We're unable to access your location. If this was unintended you can find help in the links below</p>
+      <h6>Android users</h6>
+      <a href='https://support.google.com/accounts/answer/3467281?hl=en'>Click here</a>
+      <h6>iPhone users</h6>
+      <a href='https://support.apple.com/en-au/HT203080'>Click here</a>
+  </div>
+  <div class='modal-footer' id='modalFooter'>
+    <a href='#!' class='modal-close waves-effect waves-green btn-flat' id='modalClose'>Back</a>
   </div>
 </div>
