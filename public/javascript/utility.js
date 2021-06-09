@@ -11,7 +11,7 @@ const Utility = {}
 Utility.getDistance = (staLat, staLng, desLat, desLng) => {
 	let tmp = Utility.distance(staLat, staLng, desLat, desLng, 'K')
 	tmp = Math.round(tmp * 10) / 10
-	return tmp + 'km'
+	return tmp + ' km'
 }
 
 /**

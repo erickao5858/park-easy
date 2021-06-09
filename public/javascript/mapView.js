@@ -32,9 +32,9 @@ $(document).ready(() => {
             html += '<div>'
             html += Utility.getDistance(userCoordinates.latitude, userCoordinates.longitude, coordinates[1], coordinates[0]) + '<br>'
             html += bays + '<br>'
-            html += '<a href="https://www.google.com/maps/dir/?api=1&destination=' + coordinates[1] + ',' + coordinates[0] + '&travelmode=driving" target="_blank">Navi to here</a>'
-            // TODO: Change style
-            html += '<a href="#" style="float:right" id=' + id + ' onclick="updateFav(this)">Fav</a>'
+            html += '<a href="https://www.google.com/maps/dir/?api=1&destination=' + coordinates[1] + ',' + coordinates[0] + '&travelmode=driving" target="_blank"><i class="fas fa-route"></i></a>'
+            iconClass = e.features[0].properties.icon == 'pin' ? 'far fa-heart' : 'fas fa-heart'
+            html += '<a href="#" style="float:right" targetID=' + id + ' onclick="updateFav(this)"><i class="' + iconClass + '"></i></a>'
             html += '</div>'
             return html
         }
@@ -50,7 +50,7 @@ $(document).ready(() => {
             html: 'Failed to get user location, please allow location access!',
             completeCallback: function () {
                 $(document.body).after(
-                `<div id="NoGPSModal" class="modal">              
+                    `<div id="NoGPSModal" class="modal">              
                 <div class="modal-content">
                 <h5>Location is unavailable</h4>
                 <p>We're unable to access your location. If this was unintended you can find help in the links below</p>
@@ -63,8 +63,8 @@ $(document).ready(() => {
                 <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="modalClose">Back</a>
                 </div>
                 </div>`)
-            $('#NoGPSModal').modal()
-            $('#NoGPSModal').modal('open')
+                $('#NoGPSModal').modal()
+                $('#NoGPSModal').modal('open')
             }
         })
     }, {
@@ -73,7 +73,7 @@ $(document).ready(() => {
 })
 
 const updateFav = (originate) => {
-    const id = $(originate).attr('id')
+    const id = $(originate).attr('targetID')
     const POI = POIs.find(POI => POI.properties.id == id)
 
     let favIDs = Utility.getItemFromLocalStorage('favIDs')
@@ -88,6 +88,9 @@ const updateFav = (originate) => {
         POI.properties.icon = 'pin'
         favIDs.splice(index, 1)
     }
+    
+    // Change icon inside poped window
+    $('.fa-heart').attr('class', $('.fa-heart').attr('class') == 'fas fa-heart' ? 'far fa-heart' : 'fas fa-heart')
 
     Utility.setItemToLocalStorage('favIDs', favIDs)
     map.updatePOIs(POIs)
@@ -154,6 +157,6 @@ const createPOIs = (locations) => {
     })
 }
 
-$('#btnMapRefresh').on('click',function(){
+$('#btnMapRefresh').on('click', function () {
     refreshPOIs()
 })
