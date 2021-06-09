@@ -24,7 +24,7 @@ html, body {
 }
 
 #modalClose {
-    border: 2px solid  #d6d6d6;
+    border: 2px solid #d6d6d6;
 }
 
 #btnListRefresh {
@@ -41,4 +41,15 @@ html, body {
     position: absolute;
     margin: 45%;
     display: none;
+}
+
+.fa-route {
+    margin-top: 40%;
+}
+
+.fa-heart {
+    color: #ee6e73;
+    float: right;
+    font-size: 1.5em;
+    cursor:pointer;
 }
