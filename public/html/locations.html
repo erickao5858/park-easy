@@ -16,32 +16,32 @@
     <!-- Font Awesome Icon -->
     <script src="https://kit.fontawesome.com/5f54e05fec.js" crossorigin="anonymous"></script>
     
-    <link href='../css/mapView.css' rel='stylesheet' />
+    <link href='../css/locations.css' rel='stylesheet' />
     
     <!--Let browser know website is optimized for mobile -->
     <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=no'/>
 </head>
 
 <body>
-    <!-- Map Refresh Button -->
-    <div id='btnMapRefresh'>
-        <a class='btn-floating btn-large waves-effect waves-light blue'><i class='material-icons'>refresh</i></a>
+    <!-- Preloader -->
+    <div class='preloader preloader-wrapper big active'>
+      <div class='spinner-layer spinner-blue-only'>
+          <div class='circle-clipper left'>
+          <div class='circle'></div>
+          </div><div class='gap-patch'>
+          <div class='circle'></div>
+          </div><div class='circle-clipper right'>
+          <div class='circle'></div>
+          </div>
+      </div>
     </div>
 
-    <!-- Preloader-->
-    <div id='mapLoader' class='preloader-wrapper big active'>
-        <div class='spinner-layer spinner-blue-only'>
-          <div class='circle-clipper left'>
-            <div class='circle'></div>
-          </div><div class='gap-patch'>
-            <div class='circle'></div>
-          </div><div class='circle-clipper right'>
-            <div class='circle'></div>
-          </div>
-        </div>
-    </div>
-  
+    <!-- Map -->
     <div id='map'></div>
+
+    <!-- List -->
+    <ul class='collection'></ul>
+
     <!-- jQuery -->
     <script src='https://code.jquery.com/jquery-3.6.0.min.js' integrity='sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=' crossorigin='anonymous'></script>
     <!-- Compiled and minified JavaScript -->
@@ -53,7 +53,24 @@
 
     <script type='text/javascript' src='../javascript/init.js'></script>
     <script type='text/javascript' src='../javascript/mapbox.js'></script>
-    <script type='text/javascript' src='../javascript/mapView.js'></script>
+    <script type='text/javascript' src='../javascript/locations.js'></script>
 </body>
 
 </html>
+
+<template id='template-collection-item'>
+  <li class='collection-item avatar'>
+      <img src='../assets/sample_thumbnail.png' alt='thumbnail' class='circle'>
+      <span class='title'></span>
+      <p></p>
+      <a class='secondary-content' target='_blank'><i class='fas fa-route fa-2x'></i></a>
+  </li>
+</template>
+
+<!-- Modal Structure -->
+<div id='modal1' class='modal'>
+  <div class='modal-content'><img /></div>
+  <div class='modal-footer'>
+      <a href='#!' class='modal-close waves-effect waves-green btn-flat'>Back</a>
+  </div>
+</div>

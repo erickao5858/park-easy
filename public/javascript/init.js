@@ -24,7 +24,7 @@ $(document).ready(() => {
     currentUser = Utility.getItemFromLocalStorage('currentUser')
     if (currentUser) appendUserInfo()
 
-    $('.fixed-action-btn').click(() => {
+    $('#btnMenu').click(() => {
         // Let the button triggers side navigator
         $('.sidenav').sidenav('open')
     })
@@ -60,16 +60,15 @@ $(document).ajaxError((event, jqxhr, settings, thrownError) => {
 })
 
 const appendSideNav = () => {
-    $('body').prepend("<nav> <div class='nav-wrapper'><a href='#' class='brand-logo'>Park Easy</a></div></nav>")
+    $('body').prepend('<nav> <div class="nav-wrapper"><a href="#" class="brand-logo">Park Easy</a></div></nav>')
     $('nav').after('<ul id="slide-out" class="sidenav"></ul>')
     $('.sidenav').append('<li><a class="waves-effect" href="/login"><i class="material-icons">person</i>Sign in</a></li>')
     $('.sidenav').append('<li><div class="divider"></div></li>')
-    $('.sidenav').append('<li><a class="waves-effect" href="/">Map view</a></li>')
-    $('.sidenav').append('<li><a class="waves-effect" href="/listView">List view</a></li>')
-    $('.sidenav').append(' <li><div class="divider"></div></li>')
-    $('.sidenav').append(' <li><a class="waves-effect" href="/settings">Settings</a></li>')
-    $('.sidenav').append(' <li><a class="waves-effect" href="/feedback">Feedback</a></li>')
+    $('.sidenav').append('<li><a class="waves-effect" href="/">Locations</a></li>')
+    $('.sidenav').append('<li><div class="divider"></div></li>')
+    $('.sidenav').append('<li><a class="waves-effect" href="/settings">Settings</a></li>')
+    $('.sidenav').append('<li><a class="waves-effect" href="/feedback">Feedback</a></li>')
     $('.sidenav').append('<li><a class="subheader">v0.5.0</a></li>')
-    $('.sidenav').after("<div class='fixed-action-btn'></div>")
-    $('.fixed-action-btn').append("<a href='#' class='btn-floating btn-large waves-effect waves-light blue'><i class='medium material-icons'>menu</i></a>")
+    $('.sidenav').after('<div id="btnMenu"></div>')
+    $('#btnMenu').append('<a class="btn-floating btn-large waves-effect waves-light blue"><i class="fas fa-bars"></i></a>')
 }
