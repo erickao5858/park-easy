@@ -14,10 +14,11 @@ $(document).ready(() => {
             }, 1000)
         }*/
     }, () => {
-        M.toast({ html: 'Failed to get user location, please allow location access!' ,
-        completeCallback: function () {
-            $(document.body).after(
-                `<div id="NoGPSModal" class="modal">              
+        M.toast({
+            html: 'Failed to get user location, please allow location access!',
+            completeCallback: function () {
+                $(document.body).after(
+                    `<div id="NoGPSModal" class="modal">              
                 <div class="modal-content">
                 <h5>Location is unavailable</h4>
                 <p>We're unable to access your location. If this was unintended you can find help in the links below</p>
@@ -30,19 +31,20 @@ $(document).ready(() => {
                 <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="modalClose">Back</a>
                 </div>
                 </div>`)
-        $('#NoGPSModal').modal()
-        $('#NoGPSModal').modal('open')
-        }})
+                $('#NoGPSModal').modal()
+                $('#NoGPSModal').modal('open')
+            }
+        })
     }, {
         enableHighAccuracy: true
     })
 })
 
-$('#btnListRefresh').on('click',function(){
+$('#btnListRefresh').on('click', function () {
     $('.collection').html('')
     $('#listLoader').show()
     refreshLocations()
-}) 
+})
 
 const refreshLocations = () => {
     $.post(DATA_URL, { /*hideunavailable: HIDE*/ }, (data) => {
@@ -56,7 +58,19 @@ const refreshLocations = () => {
             return
         }
         $('#listLoader').hide()
-        showLocations(data.locations)
+
+        const locations = data.locations
+        // Get favourite location IDs from local storage
+        let favIDs = Utility.getItemFromLocalStorage('favIDs')
+        if (favIDs) {
+            favIDs.forEach(id => {
+                const location = locations.find(location => location.id == id)
+                if (location) location.isFavourite = true
+                else location.isFavourite = false
+            })
+        }
+
+        showLocations(locations)
     })
 }
 
@@ -70,6 +84,13 @@ const showLocations = (locations) => {
             $('.modal').modal('open')
         })
         element.find('span').html(location.title)
+        const favBtn = $('<i/>')
+        favBtn.attr('class', location.isFavourite == true ? 'fas fa-heart' : 'far fa-heart')
+        favBtn.attr('targetID', location.id)
+        favBtn.on('click', (event) => {
+            updateFav(event.target)
+        })
+        element.find('span').append(favBtn)
         element.find('p').html(
             location.baysAvailable + '/' + location.bays + ' spots' +
             '<br>' +
@@ -77,4 +98,24 @@ const showLocations = (locations) => {
         )
         element.find('a').attr('href', 'https://www.google.com/maps/dir/?api=1&destination=' + location.coordinates[1] + ',' + location.coordinates[0] + '&travelmode=driving')
     })
+}
+
+const updateFav = (originate) => {
+    const id = $(originate).attr('targetID')
+
+    let favIDs = Utility.getItemFromLocalStorage('favIDs')
+    if (!favIDs) favIDs = []
+
+    const index = favIDs.indexOf(id)
+    if (index == -1) {
+        // Change icon
+        $(originate).attr('class','fas fa-heart')
+        favIDs.push(id)
+    }
+    else {
+        $(originate).attr('class','far fa-heart')
+        favIDs.splice(index, 1)
+    }
+    
+    Utility.setItemToLocalStorage('favIDs', favIDs)
 }
