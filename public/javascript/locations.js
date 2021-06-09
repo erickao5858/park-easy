@@ -1,5 +1,5 @@
 // TODO: Implement setting variance
-let map, POIs
+let map, POIs, locations
 
 let mapMode = true
 
@@ -83,10 +83,10 @@ const refreshLocations = () => {
         // Hide the preloader
         $('.preloader').hide()
 
-        const locations = data.locations
+        locations = data.locations
 
         // Convert data into POIs
-        createPOIs(data.locations)
+        createPOIs()
 
         // Get favourite location IDs from local storage
         let favIDs = Utility.getItemFromLocalStorage('favIDs')
@@ -99,15 +99,21 @@ const refreshLocations = () => {
             })
         }
         map.updatePOIs(POIs)
-        showLocations(locations)
+
+        locations.forEach((location) => {
+            location.distance = Utility.getDistance(userCoordinates.latitude, userCoordinates.longitude, location.coordinates[1], location.coordinates[0])
+            if (!location.isFavourite) location.isFavourite = false
+        })
+        // Sort locations by distance and favourite then display them
+        sortLocations()
+        showLocations()
     })
 }
 
 /**
  * @summary Convert location data into POI data
- * @param {JSON} locations location data
  */
-const createPOIs = (locations) => {
+const createPOIs = () => {
     POIs = []
     locations.forEach(location => {
         let POI = {
@@ -158,7 +164,7 @@ const appendBtns = () => {
     })
 }
 
-const showLocations = (locations) => {
+const showLocations = () => {
     $('.collection').html('')
     locations.forEach(location => {
         $('.collection').append($('#template-collection-item').html())
@@ -192,15 +198,28 @@ const updateFav = (originate) => {
     const index = favIDs.indexOf(id)
     if (index == -1) {
         POI.properties.icon = 'pin-favourite'
+        locations.find(location => location.id == id).isFavourite = true
         $('.fa-heart[targetID=' + id + ']').attr('class', 'fas fa-heart')
         favIDs.push(id)
     }
     else {
         POI.properties.icon = 'pin'
+        locations.find(location => location.id == id).isFavourite = false
         $('.fa-heart[targetID=' + id + ']').attr('class', 'far fa-heart')
         favIDs.splice(index, 1)
     }
 
     Utility.setItemToLocalStorage('favIDs', favIDs)
     map.updatePOIs(POIs)
+    sortLocations()
+    showLocations()
+}
+
+const sortLocations = () => {
+    locations.sort((a, b) => {
+        return a.distance > b.distance
+    })
+    locations.sort((a, b) => {
+        return Number(b.isFavourite) - Number(a.isFavourite)
+    })
 }
