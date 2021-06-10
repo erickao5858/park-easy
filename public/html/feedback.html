@@ -25,22 +25,25 @@
         <form>
             <div class='row'>
                 <div class='input-field col s12'>
-                    <input id='username' type='text' class='validate' required>
-                    <label for='username'>Username</label>
+                    <input id='name' type='text' class='validate'>
+                    <label for='name'>Name</label>
                 </div>
             </div>
             <div class='row'>
                 <div class='input-field col s12'>
-                    <input id='password' type='password' class='validate' required>
-                    <label for='password'>Password</label>
+                    <input id='email' type='email' class='validate'>
+                    <label for='contact'>Contact Email</label>
                 </div>
             </div>
             <div class='row'>
-                <div class='col s4'>
-                    <a class='btn waves-effect waves-light' href='/login'>Login</a>
+                <div class='input-field col s12'>
+                    <textarea id='feedback' class='materialize-textarea' required> </textarea>
+                    <label for='feedback'>Feedback *</label>
                 </div>
+            </div>
+            <div class='row'>
                 <div class='col s4 offset-s4'>
-                    <button class='btn waves-effect waves-light' type='button' id='btn-register'>Register</button>
+                    <button class='btn waves-effect waves-light' type='button' id='btn-submit'>Submit</button>
                 </div>
             </div>
         </form>
@@ -51,9 +54,9 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js'></script>
     <!-- Utilities -->
     <script type='text/javascript' src='../javascript/utility.js'></script>
-    
+
     <script type='text/javascript' src='../javascript/init.js'></script>
-    <script type='text/javascript' src='../javascript/register.js'></script>
+    <script type='text/javascript' src='../javascript/feedback.js'></script>
 </body>
 
 </html>
