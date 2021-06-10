@@ -10,10 +10,10 @@ class Mapbox {
     /**
      * @summary Create a map object and attach to div with map id
      */
-    showMap = () => {
+    showMap = (style) => {
         this.map = new mapboxgl.Map({
             container: 'map',
-            style: 'mapbox://styles/mapbox/streets-v11',
+            style: 'mapbox://styles/mapbox/' + style,
             maxZoom: 15,
             minZoom: 13,
             zoom: 14,

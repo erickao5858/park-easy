@@ -1,4 +1,4 @@
-let userSettings
+
 let settingItems
 $(document).ready(() => {
     $('.brand-logo').text('Settings')
@@ -10,7 +10,6 @@ $(document).ready(() => {
         }
         settingItems = data.settingItems
 
-        userSettings = Utility.getItemFromLocalStorage('settingValues')
         updateUserSettings()
         showSettings()
     })

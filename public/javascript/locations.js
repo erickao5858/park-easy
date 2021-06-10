@@ -15,8 +15,11 @@ $(document).ready(() => {
         // Mapbox API token
         const accessToken = 'pk.eyJ1IjoiZXJpY2thbyIsImEiOiJja25qMzhldmgwYThwMm5tZjh2bjBsdmQxIn0.3z4PTxSU8z0A_ggSYH3FCQ'
         map = new Mapbox(accessToken)
-        map.showMap()
-
+        if (!!userSettings && !!userSettings['Dark mode']) {
+            map.showMap('dark-v10')
+        } else {
+            map.showMap('streets-v11')
+        }
         map.loadCustomImage('../assets/pin.png', 'pin')
         map.loadCustomImage('../assets/pin_favorite.png', 'pin-favourite')
         // Center map to user location
@@ -170,8 +173,8 @@ const showLocations = () => {
         $('.collection').append($('#template-collection-item').html())
         let element = $('.collection').children().last()
         element.find('img').click((obj) => {
-            $('.modal').find('img').attr('src', obj.target.currentSrc).css('width', '100%')
-            $('.modal').modal('open')
+            $('#ThumbnailModal').find('img').attr('src', obj.target.currentSrc).css('width', '100%')
+            $('#ThumbnailModal').modal('open')
         })
         element.find('span').html(location.title)
         const favBtn = $('<i/>')
