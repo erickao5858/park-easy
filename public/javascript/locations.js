@@ -15,7 +15,7 @@ $(document).ready(() => {
         // Mapbox API token
         const accessToken = 'pk.eyJ1IjoiZXJpY2thbyIsImEiOiJja25qMzhldmgwYThwMm5tZjh2bjBsdmQxIn0.3z4PTxSU8z0A_ggSYH3FCQ'
         map = new Mapbox(accessToken)
-        if (!!userSettings && !!userSettings['Dark mode']) {
+        if (typeof userSettings != 'undefined' && userSettings['Dark mode']) {
             map.showMap('dark-v10')
         } else {
             map.showMap('streets-v11')
@@ -47,12 +47,11 @@ $(document).ready(() => {
             return html
         }
         refreshLocations()
-        /*
-        if (REFRESH) {
+        if (typeof userSettings != 'undefined' && userSettings['Refresh locations every minute']) {
             setInterval(() => {
-                refreshPOIs()
+                refreshLocations()
             }, 60000)
-        }*/
+        }
     }, () => {
         M.toast({
             html: 'Failed to get user location, please allow location access!',
@@ -73,7 +72,7 @@ $(document).ready(() => {
 const refreshLocations = () => {
     $('.mapboxgl-popup-close-button').trigger('click')
     $('.preloader').show()
-    $.post(DATA_URL, { /*hideUnavailable: HIDE*/ }, (data) => {
+    $.post(DATA_URL, { hideUnavailable: typeof userSettings != 'undefined' && userSettings['Hide unavailable locations'] }, (data) => {
         if (!data.success) {
             // Cannot retrieve locations
             M.toast({ html: 'Location server under maintenance, please come back later!' })
