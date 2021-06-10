@@ -170,8 +170,8 @@ const showLocations = () => {
         $('.collection').append($('#template-collection-item').html())
         let element = $('.collection').children().last()
         element.find('img').click((obj) => {
-            $('.modal').find('img').attr('src', obj.target.currentSrc).css('width', '100%')
-            $('.modal').modal('open')
+            $('#ThumbnailModal').find('img').attr('src', obj.target.currentSrc).css('width', '100%')
+            $('#ThumbnailModal').modal('open')
         })
         element.find('span').html(location.title)
         const favBtn = $('<i/>')
