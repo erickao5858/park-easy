@@ -2,7 +2,9 @@
 // TODO: NOT IN MAP
 // add loading effect
 
-/*const HIDE = true, REFRESH = true*/
+const myOBJ=Utility.getItemFromLocalStorage('settingValues')
+const REFRESH=myOBJ["Refresh locations every minute"]
+const HIDE=myOBJ["Hide unavailable locations"]
 $(document).ready(() => {
     // TODO: NOT IN MVP
     // Display a button allows user to refresh the page
@@ -10,12 +12,11 @@ $(document).ready(() => {
     navigator.geolocation.getCurrentPosition((position) => {
         userCoordinates = position.coords
         refreshLocations()
-        /*
         if (REFRESH) {
             setInterval(() => {
                 refreshLocations()
-            }, 1000)
-        }*/
+            }, 60000)
+        }
     }, () => {
         M.toast({ html: 'Failed to get user location, please allow location access!' })
     }, {
@@ -30,7 +31,8 @@ $('#btnListRefresh').on('click',function(){
 }) 
 
 const refreshLocations = () => {
-    $.post(DATA_URL, { /*hideunavailable: HIDE*/ }, (data) => {
+    $('#listLoader').show()
+    $.post(DATA_URL, { hideunavailable: HIDE }, (data) => {
         if (!data.success) {
             // Cannot retrieve locations
             M.toast({ html: 'Location server under maintenance, please come back later!' })

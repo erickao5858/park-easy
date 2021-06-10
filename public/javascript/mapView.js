@@ -1,7 +1,9 @@
 // TODO: Implement setting variance
 let map, POIs
 
-/*const HIDE = true, REFRESH = true*/
+const myOBJ=Utility.getItemFromLocalStorage('settingValues')
+const REFRESH=myOBJ["Refresh locations every minute"]
+const HIDE=myOBJ["Hide unavailable locations"]
 $(document).ready(() => {
     // TODO: NOT IN MVP
     // Display a component that covers the whole page
@@ -41,12 +43,11 @@ $(document).ready(() => {
             return html
         }
         refreshPOIs()
-        /*
         if (REFRESH) {
             setInterval(() => {
                 refreshPOIs()
             }, 60000)
-        }*/
+        }
     }, () => {
         M.toast({ html: 'Failed to get user location, please allow location access!' })
     }, {
@@ -82,7 +83,7 @@ const updateFav = (originate) => {
  */
 const refreshPOIs = () => {
     $('#mapLoader').show()
-    $.post(DATA_URL, { /*hideUnavailable: HIDE*/ }, (data) => {
+    $.post(DATA_URL, { hideUnavailable: HIDE}, (data) => {
         if (!data.success) {
             // Cannot retrieve locations
             M.toast({ html: 'Location server under maintenance, please come back later!' })
