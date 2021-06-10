@@ -1,5 +1,6 @@
 let userCoordinates
 let currentUser
+let userSettings
 const DEV_MODE = false
 const API_URL = {
     'PRO': 'https://park-easy-api.mybluemix.net/',
@@ -23,13 +24,13 @@ $(document).ready(() => {
     // Retrieve current user from local storage
     currentUser = Utility.getItemFromLocalStorage('currentUser')
     if (currentUser) appendUserInfo()
+    userSettings = Utility.getItemFromLocalStorage('settingValues')
 
     $('#btnMenu').click(() => {
         // Let the button triggers side navigator
         $('.sidenav').sidenav('open')
     })
 })
-
 
 const detectBrowserType = () => {
     const browserCheck = Utility.getItemFromLocalStorage('browserCheck')

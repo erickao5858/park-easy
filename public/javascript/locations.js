@@ -15,8 +15,11 @@ $(document).ready(() => {
         // Mapbox API token
         const accessToken = 'pk.eyJ1IjoiZXJpY2thbyIsImEiOiJja25qMzhldmgwYThwMm5tZjh2bjBsdmQxIn0.3z4PTxSU8z0A_ggSYH3FCQ'
         map = new Mapbox(accessToken)
-        map.showMap()
-
+        if (!!userSettings && !!userSettings['Dark mode']) {
+            map.showMap('dark-v10')
+        } else {
+            map.showMap('streets-v11')
+        }
         map.loadCustomImage('../assets/pin.png', 'pin')
         map.loadCustomImage('../assets/pin_favorite.png', 'pin-favourite')
         // Center map to user location
