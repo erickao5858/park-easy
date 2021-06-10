@@ -1,9 +1,6 @@
-// TODO: Implement setting variance
 let map, POIs, locations
-
 let mapMode = true
 
-/*const HIDE = true, REFRESH = true*/
 $(document).ready(() => {
     $('.brand-logo').text('Locations')
     appendBtns()
