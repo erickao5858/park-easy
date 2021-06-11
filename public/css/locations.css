@@ -23,8 +23,8 @@ html, body {
 
 .collection .collection-item.avatar .secondary-content {
     top: 26px;
-    margin-top:4%;
-    margin-right:2%;
+    margin-top: 4%;
+    margin-right: 2%;
 }
 
 .collection .fa-heart {
@@ -38,12 +38,12 @@ html, body {
     font-size: 1.5em;
 }
 
-.mapboxgl-popup-content .fa-route{
-    font-size:1.5em;
+.mapboxgl-popup-content .fa-route {
+    font-size: 1.5em;
 }
 
-.mapboxgl-popup-content .fa-heart{
-    font-size:1.5em;
+.mapboxgl-popup-content .fa-heart {
+    font-size: 1.5em;
 }
 
 .preloader {

@@ -64,8 +64,6 @@ const showSettings = () => {
         let element = $('.collection').children().last()
         element.find('.setting-name').text(item.name)
 
-        // TODO: NOT IN MVP
-        // Determine type of setting item and create corresponding component
         if (item.type == "boolean") {
             let control = element.find('input')
             control.bind('click', { settingName: item.name }, updateSetting)
@@ -75,14 +73,8 @@ const showSettings = () => {
 }
 
 const updateSetting = (event) => {
-    // TODO: NOT IN MVP
-    // Acquire data in different form e.g, numeric data
     const settingName = event.data.settingName
     const settingValue = getSettingValueBySettingName(settingName)
-
-    // TODO: NOT IN MVP
-    // Implement a function to solve toast spamming
-    // allow 3 toasts at the same time
 
     userSettings[settingName] = settingValue
     try {
@@ -94,7 +86,5 @@ const updateSetting = (event) => {
 }
 
 const getSettingValueBySettingName = (settingName) => {
-    // TODO: NOT IN MVP
-    // add a parameter for determine control type and return correct form of setting value
     return $('.setting-name:contains("' + settingName + '")').next().find('input').prop('checked')
 }
