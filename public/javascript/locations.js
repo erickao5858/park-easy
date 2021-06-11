@@ -75,19 +75,16 @@ $(document).ready(() => {
                 M.toast({html: 'Location server under maintence, please come back later!'})
                 return
             }
-
             if(data.locations.length == 0){
                 return
             }
-         let location = data.locations.find((location)=>location.id==Utility.getItemFromLocalStorage('lastOpenLocation'))
-
+        let location = data.locations.find((location)=>location.id==Utility.getItemFromLocalStorage('lastOpenLocation'))
         if(location.baysAvailable == 0)
         {
             M.toast({html: 'Last opened location no longer available'})
         }
         }) 
     } 
-
 })
 
 /**
