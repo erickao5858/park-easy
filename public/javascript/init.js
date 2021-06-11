@@ -66,10 +66,11 @@ const appendSideNav = () => {
     $('.sidenav').append('<li><a class="waves-effect" href="/login"><i class="material-icons">person</i>Sign in</a></li>')
     $('.sidenav').append('<li><div class="divider"></div></li>')
     $('.sidenav').append('<li><a class="waves-effect" href="/">Locations</a></li>')
-    $('.sidenav').append('<li><div class="divider"></div></li>')
     $('.sidenav').append('<li><a class="waves-effect" href="/settings">Settings</a></li>')
+    $('.sidenav').append('<li><div class="divider"></div></li>')
     $('.sidenav').append('<li><a class="waves-effect" href="/feedback">Feedback</a></li>')
-    $('.sidenav').append('<li><a class="subheader">v0.5.0</a></li>')
+    $('.sidenav').append('<li><a class="waves-effect" href="https://park-easy-landing.mybluemix.net/" target="_blank">About us</a></li>')
+    $('.sidenav').append('<li><a class="subheader">v1.2.0</a></li>')
     $('.sidenav').after('<div id="btnMenu"></div>')
     $('#btnMenu').append('<a class="btn-floating btn-large waves-effect waves-light blue"><i class="fas fa-bars"></i></a>')
 }

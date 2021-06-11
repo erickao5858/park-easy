@@ -16,6 +16,15 @@ Docker:
 
 ## Updates
 
+#### 1.2.0
+- Brand new icons
+- Dark mode for map
+- Location sorting
+- Favourite function
+- Refresh function
+- Landing page
+- Last opened locations
+
 #### 1.1.0
 - Sync settings
 - Login with google/facebook account

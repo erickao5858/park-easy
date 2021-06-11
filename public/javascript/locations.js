@@ -78,7 +78,6 @@ $(document).ready(() => {
 
 /**
  * @summary Refresh locations
- * @todo Request parameter should includes current position
  * @param {function} callback Function to be executed after displaying the locations
  * The server should only return parking bays around the user
  */
