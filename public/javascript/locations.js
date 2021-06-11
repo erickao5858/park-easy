@@ -34,18 +34,21 @@ $(document).ready(() => {
             coordinates = e.features[0].geometry.coordinates
             bays = e.features[0].properties.bays
             id = e.features[0].properties.id
-
+            
             let html = ''
             html += '<b>' + title + '</b>'
             html += '<div>'
             html += Utility.getDistance(userCoordinates.latitude, userCoordinates.longitude, coordinates[1], coordinates[0]) + '<br>'
             html += bays + '<br>'
-            html += '<a href="https://www.google.com/maps/dir/?api=1&destination=' + coordinates[1] + ',' + coordinates[0] + '&travelmode=driving" target="_blank"><i class="fas fa-route"></i></a>'
+            let  Linkurl1 = "https://www.google.com/maps/dir/?api=1&destination=" + coordinates[1] + "," + coordinates[0] + "&travelmode=driving"
+            html += '<a onclick="openLink(this)" UrlLink='+ Linkurl1 +' lastOpenID=' + id + '  target="_blank"> <i class="fas fa-route"> </i> </a>'
             iconClass = e.features[0].properties.icon == 'pin' ? 'far fa-heart' : 'fas fa-heart'
             html += '<a href="#" style="float:right"><i class="' + iconClass + '" targetID=' + id + ' onclick="updateFav(this)"></i></a>'
             html += '</div>'
+            
             return html
         }
+        
         refreshLocations()
         /*
         if (REFRESH) {
@@ -63,6 +66,28 @@ $(document).ready(() => {
     }, {
         enableHighAccuracy: true
     })
+
+    window.onfocus = function ()
+    {
+        $.post(DATA_URL, {}, (data)=>
+        {
+            if(!data.success){
+                M.toast({html: 'Location server under maintence, please come back later!'})
+                return
+            }
+
+            if(data.locations.length == 0){
+                return
+            }
+         let location = data.locations.find((location)=>location.id==Utility.getItemFromLocalStorage('lastOpenLocation'))
+
+        if(location.baysAvailable == 0)
+        {
+            M.toast({html: 'Last opened location no longer available'})
+        }
+        }) 
+    } 
+
 })
 
 /**
@@ -190,6 +215,14 @@ const showLocations = () => {
         element.find('a').attr('href', 'https://www.google.com/maps/dir/?api=1&destination=' + location.coordinates[1] + ',' + location.coordinates[0] + '&travelmode=driving')
     })
 }
+
+const openLink = (originate) =>
+        {
+            let  UrlLink = $(originate).attr('UrlLink') 
+            let  LastOpenLocation = $(originate).attr('lastOpenID') 
+            Utility.setItemToLocalStorage('lastOpenLocation',LastOpenLocation);
+            window.open(UrlLink, "_blank");
+        }
 
 const updateFav = (originate) => {
     const id = $(originate).attr('targetID')
