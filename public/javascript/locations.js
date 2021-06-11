@@ -66,11 +66,10 @@ $(document).ready(() => {
         if (!lastOpenLocation) {
             return
         }
-        getLocationData((data) => {
-            let location = data.locations.find((location) => location.id == lastOpenLocation)
+        refreshLocations(() => {
+            let location = locations.find((location) => location.id == lastOpenLocation)
             if (!location || location.baysAvailable == 0) {
                 M.toast({ html: 'Last opened location no longer available' })
-                // TODO: Remove window & refresh the locations
             }
             Utility.removeItemFromLocalStorage('lastOpenLocation')
         })
@@ -78,10 +77,14 @@ $(document).ready(() => {
 })
 
 /**
- * @summary Get location data with POST request
- * @param {function} callback Function to be executed after getting data 
+ * @summary Refresh locations
+ * @todo Request parameter should includes current position
+ * @param {function} callback Function to be executed after displaying the locations
+ * The server should only return parking bays around the user
  */
-const getLocationData = (callback) => {
+const refreshLocations = (callback) => {
+    $('.mapboxgl-popup-close-button').trigger('click')
+    $('.preloader').show()
     $.post(DATA_URL, { hideUnavailable: typeof userSettings != 'undefined' && userSettings['Hide unavailable locations'] }, (data) => {
         if (!data.success) {
             // Cannot retrieve locations
@@ -89,22 +92,9 @@ const getLocationData = (callback) => {
             return
         }
         if (data.locations.length == 0) {
-            // TODO: Add notification - no available locations
+            M.toast({ html: 'No available parkings nearing you!' })
             return
         }
-        callback(data)
-    })
-}
-
-/**
- * @summary Refresh locations
- * @todo Request parameter should includes current position
- * The server should only return parking bays around the user
- */
-const refreshLocations = () => {
-    $('.mapboxgl-popup-close-button').trigger('click')
-    $('.preloader').show()
-    getLocationData((data) => {
         // Hide the preloader
         $('.preloader').hide()
 
@@ -132,6 +122,9 @@ const refreshLocations = () => {
         // Sort locations by distance and favourite then display them
         sortLocations()
         showLocations()
+        if (typeof callback == 'function') {
+            callback()
+        }
     })
 }
 
